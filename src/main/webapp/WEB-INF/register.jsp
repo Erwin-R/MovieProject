@@ -20,22 +20,26 @@
 		</div>
 		<div id="form-container" class="d-flex justify-content-center align-items-center">
 			<div>
-				<form action="#" method="POST" >
+				<form action="/register" method="POST" modelAttribute="newUser">
 		            <h1 class="text-warning text-center">Register</h1>
-		            <label for="username" class="form-label text-warning">Username:</label>
-		            <input type="text" class="form-control" name="username">
-		            <label for="login_email" class="form-label text-warning mt-2">Email:</label>
-		            <input type="text" class="form-control" name="login_email">
-		            <label for="login_password" class="form-label text-warning mt-2">Password:</label>
-		            <input type="password" class="form-control" name="login_password">
-		            <label for="confirm_password" class="form-label text-warning mt-2">Confirm Password:</label>
-		            <input type="password" class="form-control" name="confirm_password">
+		            <form:label path="userName" class="form-label text-warning">Username:</form:label>
+					<form:errors path="userName" class="text-danger"/>
+		            <form:input type="text" class="form-control" path="userName"/>
+		            <form:label path="email" class="form-label text-warning mt-2">Email:</form:label>
+					<form:errors path="email" class="text-danger"/>
+		            <form:input type="text" class="form-control" path="email"/>
+		            <form:label path="password" class="form-label text-warning mt-2">Password:</form:form:label>
+					<form:errors path="password" class="text-danger"/>
+		            <form:input type="password" class="form-control" path="password"/>
+		            <form:label path="confirm" class="form-label text-warning mt-2">Confirm Password:</form:label>
+					<form:errors path="confirm" class="text-danger"/>
+		            <form:input type="password" class="form-control" path="confirm"/>
 		            <button type="submit" class="mt-3" id="login-button">Register</button>
 		        </form>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center align-items-center mt-3">
-		     <p class="text-warning">Already Have An Account? <a href="/login_page" class="text-primary text-decoration-none">Login Now</a></p> 
+		    <p class="text-warning">Already Have An Account? <a href="/login_page" class="text-primary text-decoration-none">Login Now</a></p> 
 		</div>
 	</div>
 </body>

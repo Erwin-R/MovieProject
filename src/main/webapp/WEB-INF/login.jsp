@@ -20,12 +20,14 @@
 		</div>
 		<div id="form-container" class="d-flex justify-content-center align-items-center">
 			<div>
-				<form action="#" method="POST" >
+				<form action="/login" method="POST" modelAttribute="newLogin">
 		            <h1 class="text-warning text-center">Login</h1>
-		            <label for="login_email" class="form-label text-warning">Email:</label>
-		            <input type="text" class="form-control" name="login_email">
-		            <label for="login_password" class="form-label text-warning mt-3">Password:</label>
-		            <input type="password" class="form-control" name="login_password">
+		            <form:label path="email" class="form-label text-warning">Email:</form:label>
+					<form:errors path="email" class="text-danger"/>
+		            <form:input type="text" class="form-control" path="email"/>
+		            <form:label path="password" class="form-label text-warning mt-3">Password:</form:label>
+					<form:errors path="password" class="text-danger"/>
+		            <form:input type="password" class="form-control" path="password"/>
 		            <button type="submit" class="mt-3" id="login-button">Login</button>
 		        </form>
 			</div>
