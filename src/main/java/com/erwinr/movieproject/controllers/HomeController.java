@@ -26,4 +26,6 @@ public class HomeController {
 	public String register_page() {
 		return "register.jsp";
 	}
+
+	@PostMapping("")
 }
