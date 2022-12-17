@@ -27,5 +27,5 @@ public class HomeController {
 		return "register.jsp";
 	}
 
-	@PostMapping("")
+	
 }
