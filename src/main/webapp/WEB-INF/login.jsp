@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-center align-items-center mt-3">
-		     <p class="text-warning">Don't Have An Account? <a href="/register_page" class="text-primary text-decoration-none">Register Now</a> </p> 
+		    <p class="text-warning">Don't Have An Account? <a href="/register_page" class="text-primary text-decoration-none">Register Now</a> </p> 
 		</div>
 	</div>
 </body>
