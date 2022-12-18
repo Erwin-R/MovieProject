@@ -20,7 +20,7 @@
 		</div>
 		<div id="form-container" class="d-flex justify-content-center align-items-center">
 			<div>
-				<form action="/register" method="POST" modelAttribute="newUser">
+				<form:form action="/register" method="POST" modelAttribute="newUser">
 		            <h1 class="text-warning text-center">Register</h1>
 		            <form:label path="userName" class="form-label text-warning">Username:</form:label>
 					<form:errors path="userName" class="text-danger"/>
@@ -28,14 +28,14 @@
 		            <form:label path="email" class="form-label text-warning mt-2">Email:</form:label>
 					<form:errors path="email" class="text-danger"/>
 		            <form:input type="text" class="form-control" path="email"/>
-		            <form:label path="password" class="form-label text-warning mt-2">Password:</form:form:label>
+		            <form:label path="password" class="form-label text-warning mt-2">Password:</form:label>
 					<form:errors path="password" class="text-danger"/>
 		            <form:input type="password" class="form-control" path="password"/>
 		            <form:label path="confirm" class="form-label text-warning mt-2">Confirm Password:</form:label>
 					<form:errors path="confirm" class="text-danger"/>
 		            <form:input type="password" class="form-control" path="confirm"/>
 		            <button type="submit" class="mt-3" id="login-button">Register</button>
-		        </form>
+		        </form:form>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center align-items-center mt-3">

@@ -55,7 +55,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/register_page")
-	public String register_page() {
+	public String register_page(Model model) {
+		model.addAttribute("newUser", new User());
 		return "register.jsp";
 	}
 
@@ -69,6 +70,7 @@ public class HomeController {
 		}
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("userName", user.getUserName());
+		emailServ.sendMessage(newUser.getEmail(), "Movie Spree", "Thank you, " + newUser.getUserName() + " for registering to the best web site for movies ever made!!!");
 		return "redirect:/home";
 	}
 	
@@ -76,12 +78,6 @@ public class HomeController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
-	}
-
-	@PostMapping("/send/message")
-	public String sendEmailMessage() {
-		emailServ.sendMessage("eloyjvigil@hotmail.com", "Testing Testing TESTING!!!", "The World Is Yours!");
-		return "Sent email";
 	}
 
 }

@@ -20,7 +20,7 @@
 		</div>
 		<div id="form-container" class="d-flex justify-content-center align-items-center">
 			<div>
-				<form action="/login" method="POST" modelAttribute="newLogin">
+				<form:form action="/login" method="POST" modelAttribute="newLogin">
 		            <h1 class="text-warning text-center">Login</h1>
 		            <form:label path="email" class="form-label text-warning">Email:</form:label>
 					<form:errors path="email" class="text-danger"/>
@@ -29,7 +29,7 @@
 					<form:errors path="password" class="text-danger"/>
 		            <form:input type="password" class="form-control" path="password"/>
 		            <button type="submit" class="mt-3" id="login-button">Login</button>
-		        </form>
+		        </form:form>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center align-items-center mt-3">
