@@ -22,7 +22,6 @@ public class EmailService {
 		message.setSubject(subject);
 		message.setText(text);
 		emailSender.send(message);
-		System.out.println("It Works!");
 	}
 	
 }
