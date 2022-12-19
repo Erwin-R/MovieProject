@@ -11,7 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/trending.css"/>
+<link rel="stylesheet" href="/css/homepage.css"/>
 <script src="https://kit.fontawesome.com/f217b10d44.js" crossorigin="anonymous"></script>
 <title>Home Page</title>
 </head>
@@ -28,7 +28,7 @@
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
-				<li><a href="/trending">Trending</a></li>
+				<li><a href="#">Trending</a></li>
 				<li><a href="#">Playlists</a></li>
 				<li><a href="#">Watchlist</a></li>
 				<li><a href="#">Contact</a></li>
@@ -74,6 +74,6 @@
 	</div>
 
 
-	<script type="text/javascript" src="/js/home.js"></script>
+	<script type="text/javascript" src="/js/trending.js"></script>
 </body>
 </html>
