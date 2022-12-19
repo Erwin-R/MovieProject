@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.User;
-import com.erwinr.movieproject.Services.EmailService;
 import com.erwinr.movieproject.Services.UserService;
 
 @Controller
@@ -21,9 +20,6 @@ public class HomeController {
 
 	@Autowired
 	UserService userServ;
-
-	@Autowired
-	EmailService emailServ;
 
 	@GetMapping("/")
 	public String index() {
@@ -78,10 +74,8 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@PostMapping("/send/message")
-	public String sendEmailMessage() {
-		emailServ.sendMessage("eloyjvigil@hotmail.com", "Testing Testing TESTING!!!", "The World Is Yours!");
-		return "Sent email";
+	@GetMapping("/trending")
+	public String trending_page(){
+		return "trending_page.jsp";
 	}
-
 }
