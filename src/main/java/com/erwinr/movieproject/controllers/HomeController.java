@@ -37,7 +37,7 @@ public class HomeController {
 	
 	
 	@GetMapping("/login_page")
-	public String login_page() {
+	public String login_page(@ModelAttribute("newLogin") LoginUser newLogin) {
 		return "login.jsp";
 	}
 
@@ -80,4 +80,8 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
+	@GetMapping("/trending")
+	public String trending_page(){
+		return "trending_page.jsp";
+	}
 }
