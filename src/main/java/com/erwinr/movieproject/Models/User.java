@@ -57,9 +57,9 @@ public class User {
 		this.updatedAt = new Date();
 	}
 
-    //   Needs to be updated to match new relationship
-	// @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	// private List<Names> name;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Movie> movies;
 
 	public User() {
 	}
