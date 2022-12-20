@@ -19,6 +19,11 @@ import com.erwinr.movieproject.Services.EmailService;
 import com.erwinr.movieproject.Services.MovieService;
 import com.erwinr.movieproject.Services.UserService;
 
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
+import info.movito.themoviedbapi.model.MovieDb;
+
 @Controller
 public class HomeController {
 
@@ -95,9 +100,14 @@ public class HomeController {
 
 	// will need to add path variable for movie id when we integrate api
 	@GetMapping("/movie/{id}/details")
-	public String showDetails(@PathVariable("id") Long id, Model model) {
+	public String showDetails(@PathVariable("id") int id, Model model) {
 		model.addAttribute("id", id);
+		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.credits);
+		model.addAttribute("movie", movie);
+		// System.out.println(movie);
 		return "showMovie.jsp";
+	}
 
 	@GetMapping("/addMovie")
 	public String addMovie(@Valid @ModelAttribute("movies")Movie movie,BindingResult result, Model model, HttpSession session){
