@@ -42,37 +42,47 @@
             <div class="title-bar text-light">
                 <div class="title-header d-flex justify-content-start align-items-end gap-3">
                     <input id="movie_id" type="hidden" value="${id}">
-                    <h1 id="title">Movie Title</h1>
-                    <p id="release_date">Release Date</p>
-                    <p id="runtime">Runtime</p>
-                    <p id="vote_average">Vote Average</p>
+                    <h1 id="title">${movie.title}</h1>
+                    <p id="release_date">${movie.releaseDate}</p>
+                    <p id="runtime">${movie.runtime}</p>
+                    <p id="vote_average">${movie.voteAverage}</p>
                 </div>
                 <div class="tagline">
-                    <p id="tagline" class="fst-italic">"How much can you know about yourself if you've never been in a fight?"</p>
+                    <p id="tagline" class="fst-italic">${movie.tagline}</p>
                 </div>
             </div>
             <div class="d-flex row">
                 <div class="left-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="poster card">
-                        <img id="movie_poster" src="/imgs/fight_club_poster.jpg" alt="MoviePoster">
+                        <img src="https://image.tmdb.org/t/p/w500${movie.posterPath}" alt="">
                     </div>
                     <div class="genres card p-2">
                         <div class="genre-header">
                             <h4>Genres</h4>
                         </div>
-                        <p id="genres">genre</p>
+                        <c:forEach var="genre" items="${movie.genres}">
+                            <p>${genre}</p>
+                        </c:forEach>
                     </div>
                     <div class="director card p-2">
                         <div class="director-header">
                             <h4>Director</h4>
                         </div>
-                        <p id="director"><a href="#">director</a></p>
+                        <c:forEach var="crewMember" items="${movie.credits.crew}">
+                            <c:if test="${crewMember.job == 'Director'}">
+                                <p>${crewMember.name}</p>
+                            </c:if>    
+                        </c:forEach>
                     </div>
                     <div class="writers card p-2">
                         <div class="writers-header">
                             <h4>Writers</h4>
                         </div>
-                        <p id="writers"><a href="#">writer</a></p>
+                        <c:forEach var="crewMember" items="${movie.credits.crew}">
+                            <c:if test="${crewMember.department == 'Writing'}">
+                                <p>${crewMember.name}</p>
+                            </c:if>    
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="center-column d-flex flex-column justify-content-start gap-3 col-6">
@@ -80,25 +90,25 @@
                         <div class="overview-header">
                             <h4>Overview</h4>
                         </div>
-                        <p id="overview">overview</p>
+                        <p id="overview">${movie.overview}</p>
                     </div>
                 </div>
                 <div class="right-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="other-details card p-2">
                         <h4>Status</h4>
-                        <p id="status">status</p>
+                        <p id="status">${movie.status}</p>
                         <h4>Original Language</h4>
-                        <p id="original_language">language</p>
+                        <p id="original_language">${movie.originalLanguage}</p>
                         <h4>Budget</h4>
-                        <p id="budget">budget</p>
+                        <p id="budget">${movie.budget}</p>
                         <h4>Revenue</h4>
-                        <p id="revenue">revenue</p>
+                        <p id="revenue">${movie.revenue}</p>
                     </div>
                 </div>
             </div>
 		</div>
 	</div>
 
-	<script type="text/javascript" src="/js/showMovie.js"></script>
+	<!-- <script type="text/javascript" src="/js/showMovie.js"></script> -->
 </body>
 </html>
