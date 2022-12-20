@@ -59,9 +59,9 @@ function getMovies(url){
 
 function showMovies(data){
     main.innerHTML = '';
-
+    
     data.forEach(movie => {
-        const {title, poster_path, vote_average, overview} = movie;
+        const {title, poster_path, vote_average, overview, id} = movie;
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie");
         movieElement.innerHTML = `
@@ -79,7 +79,7 @@ function showMovies(data){
                 <form action="/addMovie">
                     <input type="submit" class="btn me-2" value="Add to Playlist">
                 </form>
-                <form action="/showMovieDetails">
+                <form action="/movie/${id}/details">
                     <input type="submit" class="btn" value="More Details">
                 </form>
             </div>
