@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.erwinr.movieproject.Models.LoginUser;
@@ -91,6 +92,13 @@ public class HomeController {
 		return "trending_page.jsp";
 	}
 
+
+	// will need to add path variable for movie id when we integrate api
+	@GetMapping("/movie/{id}/details")
+	public String showDetails(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("id", id);
+		return "showMovie.jsp";
+
 	@GetMapping("/addMovie")
 	public String addMovie(@Valid @ModelAttribute("movies")Movie movie,BindingResult result, Model model, HttpSession session){
 		// if(session.getAttribute("userId") == null) {
@@ -100,6 +108,7 @@ public class HomeController {
 		model.addAttribute("id", session.getAttribute("userId"));
 		movieServ.create(movie);
 		return "redirect:/home";
+
 	}
 }
 
