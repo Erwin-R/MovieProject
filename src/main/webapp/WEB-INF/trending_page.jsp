@@ -11,7 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/homepage.css"/>
+<link rel="stylesheet" href="/css/trending.css"/>
 <script src="https://kit.fontawesome.com/f217b10d44.js" crossorigin="anonymous"></script>
 <title>Home Page</title>
 </head>
@@ -42,20 +42,37 @@
 		<h1>Most Popular Movies Right Now</h1>
 	</div>
 	<div id="main">
-		<div class="movie">
-			<img src="/imgs/sample_image.jpg" alt="MoviePoster">
-			<div class="movie-title">
-				<h3>Movie Title</h3>
-				<span class="green">9.8</span>
+	<c:forEach var="popularMovie" items="${popularMovies.results}">
+			<div class="movie">
+				<img src="https://image.tmdb.org/t/p/w500${popularMovie.posterPath}" alt="MoviePoster">
+				<div class="movie-title">
+					<h3>${popularMovie.title}</h3>
+					<c:choose>
+						<c:when test="${popularMovie.voteAverage >= 8 }">
+							<span class="green">${popularMovie.voteAverage}</span>
+						</c:when>
+						<c:when test="${popularMovie.voteAverage >= 5 }">
+							<span class="yellow">${popularMovie.voteAverage}</span>
+						</c:when>
+						<c:otherwise>
+							<span class="red">${popularMovie.voteAverage}</span>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="movie-description">
+					<h3>Synopsis</h3>
+					<p>${popularMovie.overview}</p>
+					<div class="d-flex">
+						<form action="/addMovie">
+							<input type="submit" class="btn me-2" value="Add to Playlist">
+						</form>
+						<form action="/movie/${popularMovie.id}/details">
+							<input type="submit" class="btn" value="More Details">
+						</form>
+					</div>
+				</div>
 			</div>
-			<div class="movie-description">
-				<h3>Synopsis</h3>
-				<p>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit voluptas officia quae nemo maiores mollitia architecto velit? 
-					Eligendi, expedita? Perspiciatis provident vero odio consequuntur sunt id labore inventore necessitatibus soluta!
-				</p>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 
 	<div class="page-list">

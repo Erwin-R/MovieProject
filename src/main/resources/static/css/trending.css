@@ -2,6 +2,8 @@
 
 *{
 	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body{
@@ -69,8 +71,10 @@ a:hover{
 
 #main{
 	display: flex;
+	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
+	margin: 0;
 }
 
 .movie{

@@ -23,6 +23,7 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
 import info.movito.themoviedbapi.model.MovieDb;
+import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 @Controller
 public class HomeController {
@@ -91,9 +92,13 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@GetMapping("/api/trending/movies")
+	@GetMapping("/trending/movies")
 	public String trending_page(Model model){
-		model.addAttribute("movies", new Movie());
+		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		MovieResultsPage popularMovies = movies.getPopularMovies("en", 1);
+		System.out.println(popularMovies);
+
+		model.addAttribute("popularMovies", popularMovies);
 		return "trending_page.jsp";
 	}
 

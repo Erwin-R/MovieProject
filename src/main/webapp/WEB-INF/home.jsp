@@ -28,7 +28,7 @@
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
-				<li><a href="/trending">Trending</a></li>
+				<li><a href="/trending/movies">Trending</a></li>
 				<li><a href="#">Playlists</a></li>
 				<li><a href="#">Watchlist</a></li>
 				<li><a href="#">Contact</a></li>
@@ -38,6 +38,7 @@
 			</ul>			
 		</div>
 	</div>
+
 	<div id="title">
 		<h1>Most Popular Movies Right Now</h1>
 	</div>
@@ -60,6 +61,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<div class="page-list">
 		<div class="page" id="previous-page">
