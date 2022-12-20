@@ -76,7 +76,7 @@ function showMovies(data){
             <h3>Synopsis</h3>
             <p>${overview? overview: 'No synopsis is available.'}</p>
             <div class="d-flex">
-                <form action="/addMovie">
+                <form action="/addMovie" >
                     <input type="submit" class="btn me-2" value="Add to Playlist">
                 </form>
                 <form action="/showMovieDetails">
