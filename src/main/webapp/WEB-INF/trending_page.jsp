@@ -54,9 +54,6 @@
 					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit voluptas officia quae nemo maiores mollitia architecto velit? 
 					Eligendi, expedita? Perspiciatis provident vero odio consequuntur sunt id labore inventore necessitatibus soluta!
 				</p>
-				<form action="/addMovie">
-					<input type="submit" class="btn" value="Add movie">
-				</form>
 			</div>
 		</div>
 	</div>
