@@ -22,8 +22,6 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    private String movie_id;
-
 	private String title;
 
     private String poster;
@@ -50,8 +48,7 @@ public class Movie {
 
     public Movie(){}
 
-    public Movie(String movie_id, String title, String poster) {
-        this.movie_id = movie_id;
+    public Movie(String title, String poster) {
         this.title = title;
         this.poster = poster;
     }
@@ -62,14 +59,6 @@ public class Movie {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMovie_id() {
-        return movie_id;
-    }
-
-    public void setMovie_id(String movie_id) {
-        this.movie_id = movie_id;
     }
 
     public String getTitle() {

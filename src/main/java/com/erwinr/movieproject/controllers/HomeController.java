@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.erwinr.movieproject.Models.LoginUser;
+import com.erwinr.movieproject.Models.Movie;
 import com.erwinr.movieproject.Models.User;
 import com.erwinr.movieproject.Services.EmailService;
+import com.erwinr.movieproject.Services.MovieService;
 import com.erwinr.movieproject.Services.UserService;
 
 @Controller
@@ -21,6 +23,9 @@ public class HomeController {
 
 	@Autowired
 	UserService userServ;
+
+	@Autowired
+	MovieService movieServ;
 
 	@Autowired
 	EmailService emailServ;
@@ -81,7 +86,20 @@ public class HomeController {
 	}
 
 	@GetMapping("/trending")
-	public String trending_page(){
+	public String trending_page(Model model){
+		model.addAttribute("movies", new Movie());
 		return "trending_page.jsp";
 	}
+
+	@GetMapping("/addMovie")
+	public String addMovie(@Valid @ModelAttribute("movies")Movie movie,BindingResult result, Model model, HttpSession session){
+		// if(session.getAttribute("userId") == null) {
+		// 	return "redirect:/";
+		System.out.println("nope");
+		
+		model.addAttribute("id", session.getAttribute("userId"));
+		movieServ.create(movie);
+		return "redirect:/home";
+	}
 }
+
