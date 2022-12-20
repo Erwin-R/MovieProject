@@ -54,12 +54,6 @@
 					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit voluptas officia quae nemo maiores mollitia architecto velit? 
 					Eligendi, expedita? Perspiciatis provident vero odio consequuntur sunt id labore inventore necessitatibus soluta!
 				</p>
-				<!-- <form:form action="/addMovie" method="POST" modelAttribute="movies">
-					<form:input type="hidden" path="user" value="${id}"/>
-					<form:input type="hidden" path="title" value="${title}"/>
-					<form:input type="hidden" path="poster" value="${poster_path}"/>
-					<input type="submit" class="btn me-2" value="Add to Playlist">
-				</form:form> -->
 			</div>
 		</div>
 	</div>

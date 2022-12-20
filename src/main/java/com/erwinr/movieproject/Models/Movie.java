@@ -23,36 +23,33 @@ public class Movie {
 	private Long id;
 
 	private String title;
-
-    private String poster;
-
+    private String poster_path;
+    private Integer vote_average;
+    private String overview;
+    private String release_date;
+    
     @Column(updatable = false)
-
+    
 	private Date createdAt;
     
 	private Date updatedAt;
-
+    
 	@PrePersist
 	protected void onCreate() {
-		this.createdAt = new Date();
+        this.createdAt = new Date();
 	}
-
+    
 	@PreUpdate
 	protected void onUpdate() {
-		this.updatedAt = new Date();
+        this.updatedAt = new Date();
 	}
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-
+    
     public Movie(){}
-
-    public Movie(String title, String poster) {
-        this.title = title;
-        this.poster = poster;
-    }
-
+    
     public Long getId() {
         return id;
     }
@@ -69,12 +66,36 @@ public class Movie {
         this.title = title;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public Integer getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(Integer vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
     public Date getCreatedAt() {
@@ -100,7 +121,7 @@ public class Movie {
     public void setUser(User user) {
         this.user = user;
     }
-
     
-
+    
+    
 }

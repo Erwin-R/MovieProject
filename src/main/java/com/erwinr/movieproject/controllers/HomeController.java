@@ -85,7 +85,7 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@GetMapping("/trending")
+	@GetMapping("/api/trending/movies")
 	public String trending_page(Model model){
 		model.addAttribute("movies", new Movie());
 		return "trending_page.jsp";
