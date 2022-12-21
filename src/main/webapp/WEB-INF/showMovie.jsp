@@ -29,12 +29,16 @@
         <div id="pages">
             <ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
                 <li><a href="/trending/movies">Trending</a></li>
-                <li><a href="#">Playlists</a></li>
-                <li><a href="/watchlist">Watchlist</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/login_page">
-                        <button class="login-btn">Sign in</button>
-                    </a></li>
+				<li><a href="/watchlist">Watchlist</a></li>
+				<li><a href="#">Contact</a></li>
+				<c:choose>
+					<c:when test="${id == null}">
+						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/logout"><button class="login-btn">Log Out</button></a></li>
+					</c:otherwise>
+				</c:choose>
             </ul>
         </div>
     </div>
@@ -44,12 +48,12 @@
                 <c:if test="${id != null}">
                     <form:form action="/addMovie" method="POST" modelAttribute="movies">
                         <form:input type="hidden" path="user" value="${id}"></form:input>
-                        <form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
-                        <form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
-                        <form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
-                        <form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
-                        <form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
-                        <form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
+                        <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
+                        <form:input type="hidden" path="title" value="${movie.title}"></form:input>
+                        <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
+                        <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
+                        <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
+                        <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
                         <input type="submit" class="btn btn-warning mb-3" value="Add to Playlist">
                     </form:form>
                 </c:if>
@@ -120,10 +124,12 @@
                         <div class="container d-flex flex-row-wrap justify-content-between gap-3">
                             <c:forEach var="castMember" items="${movie.credits.cast}">
                                 <c:if test="${castMember.order < 5}">
-                                    <div>
-                                        <img class="cast_member"
-                                            src="https://image.tmdb.org/t/p/w500${castMember.profilePath}"
-                                            alt="Actor/actress image">
+                                    <div> 
+                                        <c:if test="${castMember.profilePath != ''}">
+                                            <img class="cast_member"
+                                                    src="https://image.tmdb.org/t/p/w500${castMember.profilePath}"
+                                                    alt="Actor/actress image">
+                                        </c:if>
                                         <p class="cast_member_name">${castMember.name}</p>
                                         <p class="cast_member_char text-secondary">
                                             ${castMember.character}</p>
