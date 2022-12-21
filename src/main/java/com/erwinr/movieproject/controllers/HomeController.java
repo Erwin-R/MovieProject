@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.Movie;
@@ -21,6 +22,7 @@ import com.erwinr.movieproject.Services.UserService;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -105,14 +107,12 @@ public class HomeController {
 	}
 
 
-	// will need to add path variable for movie id when we integrate api
 	@GetMapping("/movie/{id}/details")
 	public String showDetails(@PathVariable("id") int id, Model model) {
 		model.addAttribute("id", id);
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
-		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.credits);
+		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.videos, MovieMethod.credits, MovieMethod.similar);
 		model.addAttribute("movie", movie);
-		// System.out.println(movie);
 		return "showMovie.jsp";
 	}
 
@@ -135,6 +135,7 @@ public class HomeController {
 		return "";
 	}
 
+
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session){
 		// Long userId = (Long) session.getAttribute("userId");
@@ -145,6 +146,16 @@ public class HomeController {
 		// 	return "redirect:/register_page";
 		// }
 		return "watchList.jsp";
+	}
+
+
+	@PostMapping("search_movies")
+	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model) {
+		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
+		MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
+		model.addAttribute("movieSearch", movieSearch);
+		return "searchResults.jsp";
 	}
 
 }

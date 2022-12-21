@@ -63,6 +63,10 @@ a:hover{
 	position: relative;
 }
 
+.title-text{
+	text-shadow: 0.5px 4px 5px black;
+}
+
 .card{
     border-radius: 3px;
     box-shadow: 0.5px 4px 5px black;
@@ -71,4 +75,16 @@ a:hover{
 
 #movie_poster{
     height: 500px;
+}
+
+.cast_member{
+	width: 100px;
+	height: auto;
+	border-radius: 3px;
+}
+
+.cast_member_name, .cast_member_char, .similar_movie_text{
+	font-size: 12px;
+	text-align: center;
+	margin: 0 auto;
 }
