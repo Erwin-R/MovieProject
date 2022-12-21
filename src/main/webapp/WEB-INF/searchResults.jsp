@@ -38,32 +38,21 @@
 			</ul>			
 		</div>
 	</div>
-
 	<div id="title">
-		<h1>Most Popular Movies Right Now</h1>
+		<h1 class="text-center">Results</h1>
 	</div>
 	<div id="main">
-		<div class="movie">
-			<img src="/imgs/sample_image.jpg" alt="MoviePoster">
-			<div class="movie-title">
-				<h3>Movie Title</h3>
-				<span class="green">9.8</span>
-			</div>
-			<div class="movie-description">
-				<h3>Synopsis</h3>
-				<p>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit voluptas officia quae nemo maiores mollitia architecto velit? 
-					Eligendi, expedita? Perspiciatis provident vero odio consequuntur sunt id labore inventore necessitatibus soluta!
-				</p>
-				<form action="/addMovie">
-					<input type="submit" class="btn" value="Add movie">
-				</form>
-			</div>
-		</div>
+        <c:forEach var="result" items="${movieSearch.results}">
+            <div class="movie">
+				<a href="/movie/${result.id}/details">
+                    <img src="https://image.tmdb.org/t/p/w500${result.posterPath}" alt="MoviePoster" height="auto" width="200px">
+                </a>
+                <p>${result.title}</p>
+            </div>
+        </c:forEach>
 	</div>
 
-
-	<div class="page-list">
+	<!-- <div class="page-list">
 		<div class="page" id="previous-page">
 			<p>Previous</p> 
 		</div>
@@ -73,9 +62,9 @@
 		<div class="page" id="next">
 			<p>Next</p>
 		</div>
-	</div>
+	</div> -->
 
 
-	<script type="text/javascript" src="/js/home.js"></script>
+	<script type="text/javascript" src="/js/trending.js"></script>
 </body>
 </html>

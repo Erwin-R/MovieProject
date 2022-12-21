@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.Movie;
@@ -21,6 +22,7 @@ import com.erwinr.movieproject.Services.UserService;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -122,6 +124,15 @@ public class HomeController {
 		movieServ.create(movie);
 		return "redirect:/home";
 
+	}
+
+	@PostMapping("search_movies")
+	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model) {
+		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
+		MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
+		model.addAttribute("movieSearch", movieSearch);
+		return "searchResults.jsp";
 	}
 }
 
