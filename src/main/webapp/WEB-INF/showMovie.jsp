@@ -21,7 +21,7 @@
             <p><a href="/home">Movie Spree</a></p>
         </div>
         <div id="search-container">
-            <form id="form" action="/search_movies" method="post">
+            <form id="form" action="/search_movies">
                 <input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -71,7 +71,16 @@
             <div class="d-flex flex-row row">
                 <div class="left-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="poster card">
-                        <img src="https://image.tmdb.org/t/p/w500${movie.posterPath}" alt="Movie Poster">
+                        <c:choose>
+                            <c:when test="${movie.posterPath != null}">
+                                <img src="https://image.tmdb.org/t/p/w500${movie.posterPath}" alt="MoviePoster">
+                            </c:when>
+                            <c:otherwise>
+                                <div style="background-color: gray; height: 400px; width: 100%;" class="no-poster">
+                                    <p class="text-center text-light text-wrap">Poster Not Available</p>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="genres card p-2">
                         <div class="genre-header">
@@ -121,17 +130,17 @@
                         <div class="cast-header">
                             <h4 class="mb-3">Top Cast</h4>
                         </div>
-                        <div class="container d-flex flex-row-wrap justify-content-between gap-3">
+                        <div class="container d-flex flex-wrap justify-content-between gap-2">
                             <c:forEach var="castMember" items="${movie.credits.cast}">
-                                <c:if test="${castMember.order < 5}">
-                                    <div> 
+                                <c:if test="${castMember.order < 10}">
+                                    <div style="width: 100px; height: auto;"> 
                                         <c:if test="${castMember.profilePath != ''}">
                                             <img class="cast_member"
                                                     src="https://image.tmdb.org/t/p/w500${castMember.profilePath}"
                                                     alt="Actor/actress image">
                                         </c:if>
-                                        <p class="cast_member_name">${castMember.name}</p>
-                                        <p class="cast_member_char text-secondary">
+                                        <p class="cast_member_name text-wrap">${castMember.name}</p>
+                                        <p class="cast_member_char text-secondary text-wrap fst-italic">
                                             ${castMember.character}</p>
                                     </div>
                                 </c:if>
@@ -157,10 +166,6 @@
                     <div class="other-details card p-2">
                         <h4 class="mb-3">Status</h4>
                         <p id="status">${movie.status}</p>
-                        <h4 class="mb-3">Spoken Languages</h4>
-                        <c:forEach var="language" items="${movie.spokenLanguages}">
-                            <p id="original_language">${language.name}</p>
-                        </c:forEach>
                         <h4 class="mb-3">Budget</h4>
                         <p id="budget">
                             <fmt:formatNumber value="${movie.budget}" type="currency" />
