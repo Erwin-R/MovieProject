@@ -41,7 +41,18 @@
     <div id="main" class="container mx-auto mt-5">
         <div class="movie">
             <div class="title-bar text-light">
-                <a href="/addMovie"><button class="btn btn-warning mb-3" type="submit">+ Add to Watchlist</button></a>
+                <c:if test="${id != null}">
+                    <form:form action="/addMovie" method="POST" modelAttribute="movies">
+                        <form:input type="hidden" path="user" value="${id}"></form:input>
+                        <form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
+                        <form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
+                        <form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
+                        <form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
+                        <form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
+                        <form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
+                        <input type="submit" class="btn btn-warning mb-3" value="Add to Playlist">
+                    </form:form>
+                </c:if>
                 <div class="title-header d-flex justify-content-start align-items-end gap-5">
                     <input id="movie_id" type="hidden" value="${id}">
                     <h1 id="title" class="title-text fst-italic">${movie.title}</h1>
@@ -82,7 +93,7 @@
                         </div>
                         <c:forEach var="crewMember" items="${movie.credits.crew}">
                             <c:if test="${crewMember.department == 'Writing'}">
-                                <p>${crewMember.name}</p>
+                                <p>${crewMember.name} - ${crewMember.job}</p>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -121,19 +132,18 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="videos card p-2">
-                        <div class="videos-header">
-                            <h4  class="mb-3">Videos</h4>
+                    <div class="trailers card p-2">
+                        <div class="trailers-header">
+                            <h4  class="mb-3">Trailers</h4>
                         </div>
                         <c:forEach var="video" items="${movie.videos}">
-                            <c:if test="${}">
-
-                            </c:if>
-                            <div class="m-2">
-                                <iframe width="600px" height="450px"
+                            <c:if test="${video.type == 'Trailer' && video.site == 'YouTube'}">
+                                <div class="m-2">
+                                    <iframe width="600px" height="450px"
                                     src="https://www.youtube.com/embed/${video.key}">
                                 </iframe>
                             </div>
+                        </c:if>
                         </c:forEach>
                     </div>
                 </div>
@@ -156,13 +166,13 @@
                     </div>
                     <div class="similar-movies card p-2">
                         <h4 class="mb-3">Similar Movies</h4>
-                        <c:forEach var="similarMovie" items="${movie.similarMovies}" end="9">
-                            <c:if test="${count < 10}">
+                        <c:forEach var="similarMovie" items="${movie.similarMovies}" varStatus="count">
+                            <c:if test="${count.index < 4}">
                                 <a href="/movie/${similarMovie.id}/details" class="similar_movie_poster">
                                     <img src="https://image.tmdb.org/t/p/w500${similarMovie.posterPath}"
                                     alt="Movie Poster" width="100%" height="auto">
                                 </a>
-                                <p class="similar_movie_text">${similarMovie.title} <span class="fst-italic">(${similarMovie.releaseDate})</span></p>
+                                <p class="similar_movie_text mb-3">${similarMovie.title} <span class="fst-italic">(${similarMovie.releaseDate})</span></p>
                             </c:if>
                         </c:forEach>
                     </div>
