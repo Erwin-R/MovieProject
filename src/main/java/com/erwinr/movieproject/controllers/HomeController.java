@@ -43,7 +43,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("/home")
-	public String home() {
+	public String home(Model model) {
+		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		MovieResultsPage topRatedMovies = movies.getTopRatedMovies("en", 1);
+		MovieResultsPage nowPlaying = movies.getNowPlayingMovies("en", 1, "US");
+		MovieResultsPage upcomingMovies = movies.getUpcoming("en", 1, "US");
+		model.addAttribute("topRatedMovies", topRatedMovies);
+		model.addAttribute("nowPlayingItems", nowPlaying);
+		model.addAttribute("upcomingMovies", upcomingMovies);
 		return "home.jsp";
 	}
 	
