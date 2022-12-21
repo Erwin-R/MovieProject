@@ -45,7 +45,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/home")
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieResultsPage topRatedMovies = movies.getTopRatedMovies("en", 1);
 		MovieResultsPage nowPlaying = movies.getNowPlayingMovies("en", 1, "US");
@@ -53,6 +53,9 @@ public class HomeController {
 		model.addAttribute("topRatedMovies", topRatedMovies);
 		model.addAttribute("nowPlayingItems", nowPlaying);
 		model.addAttribute("upcomingMovies", upcomingMovies);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		return "home.jsp";
 	}
 	
@@ -98,7 +101,7 @@ public class HomeController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/home";
 	}
 
 	@GetMapping("/trending/movies")
@@ -106,7 +109,9 @@ public class HomeController {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieResultsPage popularMovies = movies.getPopularMovies("en", 1);
 		System.out.println(popularMovies);
-
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		model.addAttribute("popularMovies", popularMovies);
 		model.addAttribute("movies", new Movie());
 		model.addAttribute("id", session.getAttribute("userId"));
@@ -133,6 +138,9 @@ public class HomeController {
 		// }
 		model.addAttribute("id", session.getAttribute("userId"));
 		movieServ.create(movie);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		return "redirect:/watchlist";
 	}
 
@@ -140,6 +148,9 @@ public class HomeController {
 	public String sendContact(HttpSession session, Model model){
 		Long userId = (Long) session.getAttribute("userId");
 		User u = userServ.findById(userId);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		model.addAttribute("user", u);
 		emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts", "Hello, " + u.getUserName() + " here is our contact info");
 		return "";
@@ -150,7 +161,9 @@ public class HomeController {
 	public String watchlist(Model model, HttpSession session){
 		// Long userId = (Long) session.getAttribute("userId");
 		// User user = userServ.findById(userId);
-		
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		model.addAttribute("watchMovies", movieServ.allMovies());
 		// if(session.getAttribute("userId") == null) {
 		// 	return "redirect:/register_page";
@@ -160,11 +173,14 @@ public class HomeController {
 
 
 	@PostMapping("search_movies")
-	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model) {
+	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model, HttpSession session) {
 		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
 		MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
 		model.addAttribute("movieSearch", movieSearch);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		return "searchResults.jsp";
 	}
 

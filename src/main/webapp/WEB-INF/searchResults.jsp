@@ -29,12 +29,16 @@
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
 				<li><a href="/trending/movies">Trending</a></li>
-				<li><a href="#">Playlists</a></li>
-				<li><a href="#">Watchlist</a></li>
+				<li><a href="/watchlist">Watchlist</a></li>
 				<li><a href="#">Contact</a></li>
-				<li><a href="/login_page">
-					<button class="login-btn">Sign in</button>
-				</a></li>
+				<c:choose>
+					<c:when test="${id == null}">
+						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/logout"><button class="login-btn">Log Out</button></a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>			
 		</div>
 	</div>
@@ -43,7 +47,7 @@
 	</div>
 	<div id="main">
         <c:forEach var="result" items="${movieSearch.results}">
-            <div class="movie">
+            <div class="movie card">
 				<a href="/movie/${result.id}/details">
                     <img src="https://image.tmdb.org/t/p/w500${result.posterPath}" alt="MoviePoster" height="auto" width="200px">
                 </a>

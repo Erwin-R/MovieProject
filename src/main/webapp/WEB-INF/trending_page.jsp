@@ -28,11 +28,17 @@
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
-				<li><a class="active" href="#">Trending</a></li>
-				<li><a href="#">Playlists</a></li>
+				<li><a href="/trending/movies" class="nav-link active">Trending</a></li>
 				<li><a href="/watchlist">Watchlist</a></li>
-				<li><a href="/contact">Contact</a></li>
-				<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
+				<li><a href="#">Contact</a></li>
+				<c:choose>
+					<c:when test="${id == null}">
+						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/logout"><button class="login-btn">Log Out</button></a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>			
 		</div>
 	</div>
