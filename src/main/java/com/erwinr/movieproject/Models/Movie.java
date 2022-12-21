@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="movies")
@@ -22,10 +23,14 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    private String movie_id;
 	private String title;
     private String poster_path;
-    private Integer vote_average;
+    private Float vote_average;
+
+    @Column(length=1000)
     private String overview;
+
     private String release_date;
     
     @Column(updatable = false)
@@ -49,13 +54,31 @@ public class Movie {
 	private User user;
     
     public Movie(){}
-    
+
+    public Movie(String movie_id, String title, String poster_path, Float vote_average, String overview,
+            String release_date) {
+        this.movie_id = movie_id;
+        this.title = title;
+        this.poster_path = poster_path;
+        this.vote_average = vote_average;
+        this.overview = overview;
+        this.release_date = release_date;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMovie_id() {
+        return movie_id;
+    }
+
+    public void setMovie_id(String movie_id) {
+        this.movie_id = movie_id;
     }
 
     public String getTitle() {
@@ -74,11 +97,11 @@ public class Movie {
         this.poster_path = poster_path;
     }
 
-    public Integer getVote_average() {
+    public Float getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(Integer vote_average) {
+    public void setVote_average(Float vote_average) {
         this.vote_average = vote_average;
     }
 
@@ -121,7 +144,6 @@ public class Movie {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
     
 }

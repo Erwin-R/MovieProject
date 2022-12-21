@@ -30,11 +30,9 @@
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
 				<li><a class="active" href="#">Trending</a></li>
 				<li><a href="#">Playlists</a></li>
-				<li><a href="#">Watchlist</a></li>
-				<li><a href="#">Contact</a></li>
-				<li><a href="/login_page">
-					<button class="login-btn">Sign in</button>
-				</a></li>
+				<li><a href="/watchlist">Watchlist</a></li>
+				<li><a href="/contact">Contact</a></li>
+				<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
 			</ul>			
 		</div>
 	</div>
@@ -63,9 +61,16 @@
 					<h3>Synopsis</h3>
 					<p>${popularMovie.overview}</p>
 					<div class="d-flex">
-						<form action="/addMovie">
+						<form:form action="/addMovie" method="POST" modelAttribute="movies">
+							<form:input type="hidden" path="user" value="${id}"></form:input>
+							<form:input type="hidden" path="movie_id" value="${popularMovie.imdbID}"></form:input>
+							<form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
+							<form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
+							<form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
+							<form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
+							<form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
 							<input type="submit" class="btn me-2" value="Add to Playlist">
-						</form>
+						</form:form>
 						<form action="/movie/${popularMovie.id}/details">
 							<input type="submit" class="btn" value="More Details">
 						</form>

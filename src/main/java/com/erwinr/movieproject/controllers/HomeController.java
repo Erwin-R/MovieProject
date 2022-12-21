@@ -95,12 +95,14 @@ public class HomeController {
 	}
 
 	@GetMapping("/trending/movies")
-	public String trending_page(Model model){
+	public String trending_page(Model model, HttpSession session){
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieResultsPage popularMovies = movies.getPopularMovies("en", 1);
 		System.out.println(popularMovies);
 
 		model.addAttribute("popularMovies", popularMovies);
+		model.addAttribute("movies", new Movie());
+		model.addAttribute("id", session.getAttribute("userId"));
 		return "trending_page.jsp";
 	}
 
@@ -114,17 +116,38 @@ public class HomeController {
 		return "showMovie.jsp";
 	}
 
-	@GetMapping("/addMovie")
+	@PostMapping("/addMovie")
 	public String addMovie(@Valid @ModelAttribute("movies")Movie movie,BindingResult result, Model model, HttpSession session){
 		// if(session.getAttribute("userId") == null) {
-		// 	return "redirect:/";
-		System.out.println("nope");
-		
+		// 	return "redirect:/register_page";
+		// }
 		model.addAttribute("id", session.getAttribute("userId"));
 		movieServ.create(movie);
-		return "redirect:/home";
-
+		return "redirect:/watchlist";
 	}
+
+		@GetMapping("/contact")
+	public String sendContact(HttpSession session, Model model){
+		Long userId = (Long) session.getAttribute("userId");
+		User u = userServ.findById(userId);
+		model.addAttribute("user", u);
+		emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts", "Hello, " + u.getUserName() + " here is our contact info");
+		return "";
+	}
+
+
+	@GetMapping("/watchlist")
+	public String watchlist(Model model, HttpSession session){
+		// Long userId = (Long) session.getAttribute("userId");
+		// User user = userServ.findById(userId);
+		
+		model.addAttribute("watchMovies", movieServ.allMovies());
+		// if(session.getAttribute("userId") == null) {
+		// 	return "redirect:/register_page";
+		// }
+		return "watchList.jsp";
+	}
+
 
 	@PostMapping("search_movies")
 	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model) {
@@ -134,5 +157,6 @@ public class HomeController {
 		model.addAttribute("movieSearch", movieSearch);
 		return "searchResults.jsp";
 	}
+
 }
 
