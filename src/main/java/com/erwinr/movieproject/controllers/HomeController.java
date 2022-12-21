@@ -103,14 +103,12 @@ public class HomeController {
 	}
 
 
-	// will need to add path variable for movie id when we integrate api
 	@GetMapping("/movie/{id}/details")
 	public String showDetails(@PathVariable("id") int id, Model model) {
 		model.addAttribute("id", id);
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
-		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.credits);
+		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.videos, MovieMethod.credits, MovieMethod.similar);
 		model.addAttribute("movie", movie);
-		// System.out.println(movie);
 		return "showMovie.jsp";
 	}
 
