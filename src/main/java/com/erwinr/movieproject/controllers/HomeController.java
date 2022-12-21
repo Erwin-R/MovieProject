@@ -94,7 +94,7 @@ public class HomeController {
 		}
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("userName", user.getUserName());
-		emailServ.sendMessage(newUser.getEmail(), "Movie Spree", "Thank you, " + newUser.getUserName() + " for registering to the best web site for movies ever made!!!");
+		// emailServ.sendMessage(newUser.getEmail(), "Movie Spree", "Thank you, " + newUser.getUserName() + " for registering to the best web site for movies ever made!!!");
 		return "redirect:/home";
 	}
 	
@@ -172,7 +172,7 @@ public class HomeController {
 	}
 
 
-	@PostMapping("search_movies")
+	@GetMapping("search_movies")
 	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model, HttpSession session) {
 		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();

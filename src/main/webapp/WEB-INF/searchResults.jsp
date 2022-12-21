@@ -11,7 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/trending.css"/>
+<link rel="stylesheet" href="/css/searchResults.css"/>
 <script src="https://kit.fontawesome.com/f217b10d44.js" crossorigin="anonymous"></script>
 <title>Home Page</title>
 </head>
@@ -21,7 +21,7 @@
 			<p><a href="/home">Movie Spree</a></p>
 		</div>
 		<div id="search-container">
-			<form id="form" action="/search_movies" method="post">
+			<form id="form" action="/search_movies">
 				<input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
@@ -42,16 +42,33 @@
 			</ul>			
 		</div>
 	</div>
-	<div id="title">
+	<div id="title" class="mb-5">
 		<h1 class="text-center">Results</h1>
 	</div>
-	<div id="main">
+	<div class="container mx-auto d-flex flex-column justify-content-start">
         <c:forEach var="result" items="${movieSearch.results}">
-            <div class="movie card">
-				<a href="/movie/${result.id}/details">
-                    <img src="https://image.tmdb.org/t/p/w500${result.posterPath}" alt="MoviePoster" height="auto" width="200px">
-                </a>
-                <p>${result.title}</p>
+            <div class="card mb-3 d-flex flex-row">
+				<div class="movie-poster">
+					<c:choose>
+						<c:when test="${result.posterPath != null}">
+							<a href="/movie/${result.id}/details">
+								<img src="https://image.tmdb.org/t/p/w500${result.posterPath}" alt="MoviePoster" height="auto" width="250px">
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/movie/${result.id}/details">
+								<div style="background-color: gray; height: 100%; width: 250px;" class="no-poster">
+									<p class="text-center text-light text-wrap">Poster Not Available</p>
+								</div>
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="p-5">
+					<a href="/movie/${result.id}/details"><h2 class="fst-italic">${result.title}</h2></a>
+					<h5 class="fst-italic mb-5">${result.releaseDate}</h5>
+					<p>${result.overview}</p>
+				</div>
             </div>
         </c:forEach>
 	</div>

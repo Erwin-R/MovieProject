@@ -21,10 +21,10 @@
 			<p><a href="/home">Movie Spree</a></p>
 		</div>
 		<div id="search-container">
-			<form id="form">
-				<input id="search" class="search-bar" placeholder="Search..." type="text"></input>
-				<button type="submit"><i class="fa fa-search"></i></button>
-			</form>
+			<form id="form" action="/search_movies">
+                <input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">

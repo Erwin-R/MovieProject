@@ -88,3 +88,9 @@ a:hover{
 	text-align: center;
 	margin: 0 auto;
 }
+
+.no-poster{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
