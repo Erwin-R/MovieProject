@@ -58,7 +58,7 @@
 					</c:choose>
 				</div>
 				<div class="movie-description">
-					<h3>Synopsis</h3>
+					<h3>Overview</h3>
 					<p>${popularMovie.overview}</p>
 					<div class="d-flex">
 						<form:form action="/addMovie" method="POST" modelAttribute="movies">

@@ -114,11 +114,14 @@ public class HomeController {
 	}
 
 
-	@GetMapping("/movie/{id}/details")
-	public String showDetails(@PathVariable("id") int id, Model model) {
-		model.addAttribute("id", id);
+	@GetMapping("/movie/{movieId}/details")
+	public String showDetails(@PathVariable("movieId") int movieId, @ModelAttribute("movies") Movie addMovie, Model model, HttpSession session) {
+		model.addAttribute("movieId", movieId);
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
-		MovieDb movie = movies.getMovie(id,"en", MovieMethod.images, MovieMethod.videos, MovieMethod.credits, MovieMethod.similar);
+		MovieDb movie = movies.getMovie(movieId,"en", MovieMethod.images, MovieMethod.videos, MovieMethod.credits, MovieMethod.similar);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		model.addAttribute("movie", movie);
 		return "showMovie.jsp";
 	}
@@ -133,7 +136,7 @@ public class HomeController {
 		return "redirect:/watchlist";
 	}
 
-		@GetMapping("/contact")
+	@GetMapping("/contact")
 	public String sendContact(HttpSession session, Model model){
 		Long userId = (Long) session.getAttribute("userId");
 		User u = userServ.findById(userId);
