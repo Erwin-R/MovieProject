@@ -10,8 +10,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/trending.css"/>
+<link rel="stylesheet" href="/css/homepage.css"/>
 <script src="https://kit.fontawesome.com/f217b10d44.js" crossorigin="anonymous"></script>
 <title>Home Page</title>
 </head>
@@ -33,49 +34,54 @@
 				<li><a href="#">Watchlist</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="/login_page">
-					<button class="login-btn">Sign in</button>
+					<button class="login-btn p-1">Sign in</button>
 				</a></li>
 			</ul>			
 		</div>
 	</div>
-
-	<div id="title">
-		<h1>Most Popular Movies Right Now</h1>
-	</div>
-	<div id="main">
-		<div class="movie">
-			<img src="/imgs/sample_image.jpg" alt="MoviePoster">
-			<div class="movie-title">
-				<h3>Movie Title</h3>
-				<span class="green">9.8</span>
-			</div>
-			<div class="movie-description">
-				<h3>Synopsis</h3>
-				<p>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit voluptas officia quae nemo maiores mollitia architecto velit? 
-					Eligendi, expedita? Perspiciatis provident vero odio consequuntur sunt id labore inventore necessitatibus soluta!
-				</p>
-				<form action="/addMovie">
-					<input type="submit" class="btn" value="Add movie">
-				</form>
-			</div>
+	<h1 class="category-headings">Top Rated Movies</h1>
+	<div id="popular-movie-container" class="d-flex swiper mySwiper">
+		<div class="swiper-wrapper">
+			<c:forEach var="topRatedMovie" items="${topRatedMovies.results}">
+				<div class="movie me-4 swiper-slide">
+					<div class="mt-4">
+						<a href="/movie/${topRatedMovie.id}/details"><img src="https://image.tmdb.org/t/p/w500${topRatedMovie.posterPath}" alt="${topRatedMovie.title}" class="movie-image" height="auto" width="200px"></a>
+						<h3 class="mt-4">${topRatedMovie.title}</h3>
+						<h6>${topRatedMovie.releaseDate}</h6>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
-
-
-	<div class="page-list">
-		<div class="page" id="previous-page">
-			<p>Previous</p> 
-		</div>
-		<div class="current" id="current-page">
-			<p>1</p>
-		</div>
-		<div class="page" id="next">
-			<p>Next</p>
+	<h1 class="category-headings-2 mt-5">Now Playing</h1>
+	<div id="now-playing-container" class="d-flex swiper mySwiper">
+		<div class="swiper-wrapper">
+			<c:forEach var="nowPlayingItem" items="${nowPlayingItems.results}">
+				<div class="movie me-4 swiper-slide">
+					<div class="mt-4">
+						<a href="/movie/${nowPlayingItem.id}/details"><img src="https://image.tmdb.org/t/p/w500${nowPlayingItem.posterPath}" alt="${nowPlayingItem.title}" class="movie-image" height="auto" width="200px"></a>
+					</div>
+					<h3 class="mt-4">${nowPlayingItem.title}</h3>
+					<h6>${nowPlayingItem.releaseDate}</h6>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
-
-
+	<h1 class="category-headings-2">Upcoming Movies</h1>
+	<div id="upcoming-container" class="d-flex swiper mySwiper">
+		<div class="swiper-wrapper">
+			<c:forEach var="upcomingMovie" items="${upcomingMovies.results}">
+				<div class="movie me-4 swiper-slide">
+					<div class="mt-4">
+						<a href="/movie/${upcomingMovie.id}/details"><img src="https://image.tmdb.org/t/p/w500${upcomingMovie.posterPath}" alt="${upcomingMovie.title}" class="movie-image" height="auto" width="200px"></a>
+					</div>
+					<h3 class="mt-4">${upcomingMovie.title}</h3>
+					<h6>${upcomingMovie.releaseDate}</h6>
+				</div>
+			</c:forEach>
+		</div>
+	</div> 
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script type="text/javascript" src="/js/home.js"></script>
 </body>
 </html>
