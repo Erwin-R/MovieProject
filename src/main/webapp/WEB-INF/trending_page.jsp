@@ -63,7 +63,7 @@
 					<div class="d-flex">
 						<form:form action="/addMovie" method="POST" modelAttribute="movies">
 							<form:input type="hidden" path="user" value="${id}"></form:input>
-							<form:input type="hidden" path="movie_id" value="${popularMovie.imdbID}"></form:input>
+							<form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
 							<form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
 							<form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
 							<form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>

@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name="movies")
@@ -23,7 +23,7 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    private String movie_id;
+    private int movie_id;
 	private String title;
     private String poster_path;
     private Float vote_average;
@@ -55,7 +55,7 @@ public class Movie {
     
     public Movie(){}
 
-    public Movie(String movie_id, String title, String poster_path, Float vote_average, String overview,
+    public Movie(int movie_id, String title, String poster_path, Float vote_average, String overview,
             String release_date) {
         this.movie_id = movie_id;
         this.title = title;
@@ -73,11 +73,11 @@ public class Movie {
         this.id = id;
     }
 
-    public String getMovie_id() {
+    public int getMovie_id() {
         return movie_id;
     }
 
-    public void setMovie_id(String movie_id) {
+    public void setMovie_id(int movie_id) {
         this.movie_id = movie_id;
     }
 
@@ -144,6 +144,5 @@ public class Movie {
     public void setUser(User user) {
         this.user = user;
     }
-
     
 }
