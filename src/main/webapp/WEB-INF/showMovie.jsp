@@ -162,11 +162,6 @@
                         </c:if>
                         </c:forEach>
                     </div>
-                    <div class="card">
-                        <div class="trailers-header">
-                            <h4  class="mb-3">User Reviews</h4>
-                        </div>
-                    </div>
                 </div>
                 <div class="right-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="other-details card p-2">
@@ -199,8 +194,33 @@
                     </div>
                 </div>
             </div>
+            <div id="comment-container">
+                <div class="d-flex justify-content-between p-3 align-items-center">
+                    <h1>User Reviews</h1>
+                    <a><button id="review-button" class="btn btn-dark text-warning">Write a Review!</button></a>
+                </div>
+                <div class="review-form p-3" style="display: none;">
+                    <h3>Your Review</h3>
+                    <form:form action="/movie/comment/${movie.id}" method="POST" modelAttribute="newComment">
+                        <form:errors path="commentInfo" class="text-danger"></form:errors>
+                        <form:textarea path="commentInfo" class="form-control" rows="8"></form:textarea>
+                        <input type="submit" class="btn btn-dark mt-2 text-warning" value="Submit"/>
+                    </form:form>
+                </div>
+                <div id="comments" class="p-3">
+                    <h3>User said:</h3>
+                    <p>This is an example comment. This comment is the best!</p>
+                    <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
+                </div>
+                <div id="comments" class="p-3">
+                    <h3>User said:</h3>
+                    <p>This is an example comment. This comment is the best!</p>
+                    <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
+                </div>
+            </div>
         </div>
     </div>
+    <script type="text/javascript" src="/js/showMovie.js"></script>
 </body>
 
 </html>

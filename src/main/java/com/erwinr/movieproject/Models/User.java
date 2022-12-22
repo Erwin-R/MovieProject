@@ -61,6 +61,10 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Movie> movies;
 
+    @Column(updatable=false)
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    private List<Comment> commentsCreated;
+
 	public User() {
 	}
 

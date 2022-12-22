@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.erwinr.movieproject.Models.Comment;
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.Movie;
 import com.erwinr.movieproject.Models.User;
@@ -120,12 +121,12 @@ public class HomeController {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
-		Long id =(Long)session.getAttribute("userId");
+		// Long id =(Long)session.getAttribute("userId");
 
 		model.addAttribute("popularMovies", popularMovies);
 		model.addAttribute("movies", new Movie());
 		model.addAttribute("id", session.getAttribute("userId"));
-		model.addAttribute("watchList", userServ.findUserMovies(id));
+		// model.addAttribute("watchList", userServ.findUserMovies(id));
 		return "trending_page.jsp";
 	}
 
@@ -138,9 +139,10 @@ public class HomeController {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
-		Long id =(Long)session.getAttribute("userId");
-		model.addAttribute("watchList", userServ.findUserMovies(id));
+		// Long id =(Long)session.getAttribute("userId");
+		// model.addAttribute("watchList", userServ.findUserMovies(id));
 		model.addAttribute("movie", movie);
+		model.addAttribute("newComment", new Comment());
 		return "showMovie.jsp";
 	}
 
