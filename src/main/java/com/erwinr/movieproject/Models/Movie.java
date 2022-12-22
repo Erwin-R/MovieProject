@@ -1,6 +1,7 @@
 package com.erwinr.movieproject.Models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -53,6 +55,10 @@ public class Movie {
 	@JoinColumn(name = "user_id")
 	private User user;
     
+    @Column(updatable=false)
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
     public Movie(){}
 
     public Movie(int movie_id, String title, String poster_path, Float vote_average, String overview,

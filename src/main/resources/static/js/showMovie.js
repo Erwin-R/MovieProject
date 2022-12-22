@@ -53,3 +53,17 @@ function showMovieDetails(data){
     revenue.innerHTML = "$" + data.revenue;
     runtime.innerHTML = data.runtime + "m";
 }
+
+
+const toggleBtn = document.getElementById("review-button");
+const divWriteReview = document.querySelector(".review-form");
+
+toggleBtn.addEventListener("click", () => {
+    if(divWriteReview.style.display === "none"){
+        divWriteReview.style.display = "block";
+        toggleBtn.innerHTML="Cancel Review"
+    } else{
+        divWriteReview.style.display = "none";
+        toggleBtn.innerHTML="Write a Review"
+    }
+})

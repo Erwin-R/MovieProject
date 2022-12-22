@@ -23,7 +23,7 @@
 		<div id="search-container">
 			<form id="form" action="/search_movies">
 				<input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
-				<button type="submit"><i class="fa fa-search"></i></button>
+				<button type="submit" class="p-1"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
 		<div id="pages">
@@ -66,8 +66,8 @@
 				<div class="movie-description">
 					<h3>Overview</h3>
 					<p>${popularMovie.overview}</p>
-					<p>${popularMovie.id}</p>
-					<p>${watchList}</p>
+					<!-- <p>${popularMovie.id}</p>
+					<p>${watchList}</p> -->
 					<div class="d-flex">
 						<c:if test="${id != null}">
 							<c:choose>
@@ -100,7 +100,17 @@
 		</c:forEach>
 	</div>
 
-	<div class="page-list">
+
+	<!-- <nav aria-label="Page navigation example">
+		<ul class="pagination">
+			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		</ul>
+	</nav> -->
+	<!-- <div class="page-list">
 		<div class="page" id="previous-page">
 			<p>Previous</p> 
 		</div>
@@ -110,7 +120,7 @@
 		<div class="page" id="next">
 			<p>Next</p>
 		</div>
-	</div>
+	</div> -->
 
 
 	<script type="text/javascript" src="/js/trending.js"></script>
