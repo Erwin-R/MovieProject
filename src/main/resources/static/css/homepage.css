@@ -58,6 +58,9 @@ a:hover{
 
 .login-btn{
 	background-color: orange;
+	border-radius: 3px;
+	border: #ff9d00;
+	margin-left: 40px;
 }
 
 .category-headings{

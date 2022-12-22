@@ -21,16 +21,16 @@
             <p><a href="/home">Movie Spree</a></p>
         </div>
         <div id="search-container">
-            <form id="form" action="/search_movies" method="post">
-                <input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
+			<form id="form" action="/search_movies">
+				<input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
+				<button type="submit"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
         <div id="pages">
             <ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
                 <li><a href="/trending/movies">Trending</a></li>
 				<li><a href="/watchlist">Watchlist</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="/contact">Contact</a></li>
 				<c:choose>
 					<c:when test="${id == null}">
 						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
@@ -45,26 +45,7 @@
     <div id="main" class="container mx-auto mt-5">
         <div class="movie">
             <div class="title-bar text-light">
-                <c:choose>
-                    <c:when test="${id != null && watchList.contains(movie.id)}">
-                        <form action="/removeMovie/${movie.id}" method="POST">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="submit" class="btn btn-warning mb-3" value="Remove From Watchlist">
-                        </form>
-                    </c:when>
-                    <c:when test="${id != null}">
-                        <form:form action="/addMovie" method="POST" modelAttribute="movies">
-                            <form:input type="hidden" path="user" value="${id}"></form:input>
-                            <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
-                            <form:input type="hidden" path="title" value="${movie.title}"></form:input>
-                            <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
-                            <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
-                            <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
-                            <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
-                            <input type="submit" class="btn btn-warning mb-3" value="Add to Watchlist">
-                        </form:form>
-                    </c:when>
-                </c:choose>
+
                 <div class="title-header d-flex justify-content-start align-items-end gap-5">
                     <input id="movie_id" type="hidden" value="${id}">
                     <h1 id="title" class="title-text fst-italic">${movie.title}</h1>
@@ -169,13 +150,31 @@
                     </div>
                 </div>
                 <div class="right-column d-flex flex-column justify-content-start gap-3 col-3">
+                    <c:if test="${id != null}">
+                        <c:choose>
+                            <c:when test="${watchList.contains(movie.id)}">
+                                <form action="/removeMovie/${movie.id}" method="POST">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="submit" class="watchlist-remove-btn" value="Remove From Watchlist">
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form:form action="/addMovie" method="POST" modelAttribute="movies">
+                                    <form:input type="hidden" path="user" value="${id}"></form:input>
+                                    <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
+                                    <form:input type="hidden" path="title" value="${movie.title}"></form:input>
+                                    <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
+                                    <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
+                                    <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
+                                    <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
+                                    <input type="submit" class="watchlist-btn" value="Add to Watchlist">
+                                </form:form>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
                     <div class="other-details card p-2">
                         <h4 class="mb-3">Status</h4>
                         <p id="status">${movie.status}</p>
-                        <h4 class="mb-3">Spoken Languages</h4>
-                        <c:forEach var="language" items="${movie.spokenLanguages}">
-                            <p id="original_language">${language.name}</p>
-                        </c:forEach>
                         <h4 class="mb-3">Budget</h4>
                         <p id="budget">
                             <fmt:formatNumber value="${movie.budget}" type="currency" />
