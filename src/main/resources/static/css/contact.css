@@ -1,10 +1,5 @@
 @charset "ISO-8859-1";
 
-*{
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
 
 body{
 	margin: 0;
@@ -15,42 +10,59 @@ body{
 	background-size: cover;
 }
 
-#navbar{
-	width: 100%;
-	height: 125px;
-	background-color: black;
+#container{
+    width: 400px;
+    height: 500px;
+    background-color: black;
+    border: orange solid 2px;
+    border-radius: 10px;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
 }
 
-#logo > p{
-	font-size: 40px;
-	color:white;
-}
-
-#nav-list{
-	list-style: none;
-	font-size: 25px;
-	padding: 50px;
-}
-
-#nav-list > li{
-	margin-left: 15px;
+#form-container{
+	margin-top: 30px;	
 }
 
 a{
-	text-decoration: none;
-	color: white;
+	color: rgb(0, 0, 0);
 }
 
 a:hover{
-	color: orange;
+	color: rgb(255, 255, 255);
 }
 
-.search-bar{
-	width: 500px;
-	height: 40px;
-	border-radius: 15px;
-	font-size: 20px;
-	padding: 10px;
+#submit-button{
+	background-color: #000000;
+	border: #ff9d00 solid 2px;
+	color: rgb(254, 254, 254);
+	height: 50px;
+	width: 100px;
+	border-radius: 20px;
+    font-size: 1.2em;
+}
+
+#register-container{
+    width: 400px;
+    height: 650px;
+    color: rgb(0, 0, 0);
+    background-color:  #ff9d00;
+    border: orange solid 2px;
+    border-radius: 10px;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
 }
 
 .login-btn{
@@ -58,28 +70,4 @@ a:hover{
 	border-radius: 3px;
 	border: #ff9d00;
 	margin-left: 40px;
-}
-
-#title{
-	background-color: black;
-	color: orange;
-	margin: 0 auto;
-	margin-top: 15px;
-	width: 625px;
-	padding: 10px 15px;
-	border-radius: 500px;
-}
-
-.card{
-    width: 100%;
-    height: 100%;
-    border-radius: 3px;
-    box-shadow: 0.5px 4px 5px black;
-    background-color: #ff9d00;
-}
-
-.no-poster{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

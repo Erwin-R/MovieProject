@@ -48,8 +48,29 @@ a:hover{
 }
 
 .login-btn{
+	height: 40px;
+	width: 100%;
 	background-color: orange;
-	
+	border-radius: 3px;
+	border: #ff9d00;
+}
+
+.watchlist-btn{
+	height: 40px;
+	width: 100%;
+	background-color: rgb(102, 123, 255);
+	color: white;
+	border-radius: 3px;
+	border: rgb(102, 123, 255);
+}
+
+.watchlist-remove-btn{
+	height: 40px;
+	width: 100%;
+	background-color: rgb(247, 108, 108);
+	color: white;
+	border-radius: 3px;
+	border: rgb(247, 108, 108);
 }
 
 #nav-list > li{

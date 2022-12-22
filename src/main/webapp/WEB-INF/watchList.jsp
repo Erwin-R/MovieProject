@@ -21,8 +21,8 @@
 			<p><a href="/home">Movie Spree</a></p>
 		</div>
 		<div id="search-container">
-			<form id="form">
-				<input id="search" class="search-bar" placeholder="Search..." type="text"></input>
+			<form id="form" action="/search_movies">
+				<input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
@@ -30,7 +30,7 @@
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
 				<li><a href="/trending/movies">Trending</a></li>
 				<li><a href="/watchlist" class="nav-link active">Watchlist</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="/contact">Contact</a></li>
 				<c:choose>
 					<c:when test="${id == null}">
 						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
@@ -51,7 +51,7 @@
 				<img src="https://image.tmdb.org/t/p/w500${watchListMovie.poster_path}" alt="MoviePoster">
 				<div class="movie-title">
 					<h3>${watchListMovie.title}</h3>
-					<h3>Release Date: ${watchListMovie.release_date}</h3>
+					<h6>Release Date: ${watchListMovie.release_date}</h6>
 					<c:choose>
 						<c:when test="${watchListMovie.vote_average >= 8 }">
 							<span class="green">${watchListMovie.vote_average}</span>
