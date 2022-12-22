@@ -51,7 +51,7 @@
 				<img src="https://image.tmdb.org/t/p/w500${watchListMovie.poster_path}" alt="MoviePoster">
 				<div class="movie-title">
 					<h3>${watchListMovie.title}</h3>
-					<h3>Release Date: ${watchListMovie.release_date}</h3>
+					<h6>Release Date: ${watchListMovie.release_date}</h6>
 					<c:choose>
 						<c:when test="${watchListMovie.vote_average >= 8 }">
 							<span class="green">${watchListMovie.vote_average}</span>

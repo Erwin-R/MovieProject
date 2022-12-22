@@ -16,12 +16,21 @@ public class EmailService {
 	}
 	
 	public void sendMessage(String to, String subject, String text) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("buefordvigil@gmail.com");
-		message.setTo(to);
-		message.setSubject(subject);
-		message.setText(text);
-		emailSender.send(message);
+		SimpleMailMessage sendMessage = new SimpleMailMessage();
+		sendMessage.setFrom("eloyschoolstuff@gmail.com");
+		sendMessage.setTo(to);
+		sendMessage.setSubject(subject);
+		sendMessage.setText(text);
+		emailSender.send(sendMessage);
+	}
+
+	public void recieveMessage(String subject, String text) {
+		SimpleMailMessage recieveMessage = new SimpleMailMessage();
+		recieveMessage.setFrom("eloyschoolstuff@gmail.com");
+		recieveMessage.setTo("eloyjvigil@hotmail.com");
+		recieveMessage.setSubject(subject);
+		recieveMessage.setText(text);
+		emailSender.send(recieveMessage);
 	}
 	
 }
