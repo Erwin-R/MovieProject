@@ -16,11 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-import com.erwinr.movieproject.Models.Comment;
-
 import com.erwinr.movieproject.Models.Contact;
-
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.Movie;
 import com.erwinr.movieproject.Models.User;
@@ -128,17 +124,8 @@ public class HomeController {
 			model.addAttribute("watchList", userServ.findUserMovies(id));
 		}
 
-		// Long id =(Long)session.getAttribute("userId");
-
 		model.addAttribute("popularMovies", popularMovies);
 		model.addAttribute("movies", new Movie());
-		model.addAttribute("id", session.getAttribute("userId"));
-		// model.addAttribute("watchList", userServ.findUserMovies(id));
-
-
-		model.addAttribute("popularMovies", popularMovies);
-		model.addAttribute("movies", new Movie());
-
 		return "trending_page.jsp";
 	}
 
@@ -158,12 +145,6 @@ public class HomeController {
 			model.addAttribute("id", id);
 			model.addAttribute("watchList", userServ.findUserMovies(id));
 		}
-
-		// Long id =(Long)session.getAttribute("userId");
-		// model.addAttribute("watchList", userServ.findUserMovies(id));
-		model.addAttribute("movie", movie);
-		model.addAttribute("newComment", new Comment());
-
 		return "showMovie.jsp";
 	}
 
@@ -190,18 +171,18 @@ public class HomeController {
 		return "redirect:/watchlist";
 	}
 
-	@GetMapping("/contact")
-	public String sendContact(HttpSession session, Model model) {
-		Long userId = (Long) session.getAttribute("userId");
-		User u = userServ.findById(userId);
-		if (session.getAttribute("userId") != null) {
-			model.addAttribute("id", session.getAttribute("userId"));
-		}
-		model.addAttribute("user", u);
-		emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts",
-				"Hello, " + u.getUserName() + " here is our contact info");
-		return "";
-	}
+	// @GetMapping("/contact")
+	// public String sendContact(HttpSession session, Model model) {
+	// 	Long userId = (Long) session.getAttribute("userId");
+	// 	User u = userServ.findById(userId);
+	// 	if (session.getAttribute("userId") != null) {
+	// 		model.addAttribute("id", session.getAttribute("userId"));
+	// 	}
+	// 	model.addAttribute("user", u);
+	// 	emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts",
+	// 			"Hello, " + u.getUserName() + " here is our contact info");
+	// 	return "";
+	// }
 
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session) {
@@ -235,11 +216,11 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
-	// @GetMapping("/contact")
-	// public String contactpage(@ModelAttribute("formdata") Contact contact, BindingResult result, HttpSession session,
-	// 		Model model) {
-	// 	return "contact.jsp";
-	// }
+	@GetMapping("/contact")
+	public String contactpage(@ModelAttribute("formdata") Contact contact, BindingResult result, HttpSession session,
+			Model model) {
+		return "contact.jsp";
+	}
 
 	@GetMapping("search_movies")
 	public String searchMovies(@RequestParam(value = "searchCriteria") String searchCriteria, Model model,
