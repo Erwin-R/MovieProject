@@ -31,7 +31,7 @@
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
 				<li><a href="/trending/movies">Trending</a></li>
 				<li><a href="/watchlist">Watchlist</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="/contact">Contact</a></li>
 				<c:choose>
 					<c:when test="${id == null}">
 						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
