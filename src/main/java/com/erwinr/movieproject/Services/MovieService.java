@@ -40,7 +40,7 @@ public class MovieService {
         return movieRepo.save(movie);
     }
 
-    public void deletMovie(Long id) {
+    public void deleteMovie(Long id) {
         movieRepo.deleteById(id);
     }
 
