@@ -96,7 +96,7 @@
                         </div>
                         <c:forEach var="crewMember" items="${movie.credits.crew}">
                             <c:if test="${crewMember.job == 'Director'}">
-                                <p>${crewMember.name}</p>
+                                <p><a href="/person/${crewMember.id}/details">${crewMember.name}</a></p>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -106,7 +106,7 @@
                         </div>
                         <c:forEach var="crewMember" items="${movie.credits.crew}">
                             <c:if test="${crewMember.department == 'Writing'}">
-                                <p>${crewMember.name} - ${crewMember.job}</p>
+                                <p><a href="/person/${crewMember.id}/details">${crewMember.name}</a> - ${crewMember.job}</p>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -130,14 +130,16 @@
                         <div class="cast-header">
                             <h4 class="mb-3">Top Cast</h4>
                         </div>
-                        <div class="container d-flex flex-wrap justify-content-between gap-2">
+                        <div class="container d-flex flex-wrap align-self-center gap-3">
                             <c:forEach var="castMember" items="${movie.credits.cast}">
                                 <c:if test="${castMember.order < 10}">
                                     <div style="width: 100px; height: auto;"> 
                                         <c:if test="${castMember.profilePath != ''}">
-                                            <img class="cast_member"
+                                            <a href="/person/${castMember.id}/details">
+                                                <img class="cast_member"
                                                     src="https://image.tmdb.org/t/p/w500${castMember.profilePath}"
                                                     alt="Actor/actress image">
+                                            </a>
                                         </c:if>
                                         <p class="cast_member_name text-wrap">${castMember.name}</p>
                                         <p class="cast_member_char text-secondary text-wrap fst-italic">
