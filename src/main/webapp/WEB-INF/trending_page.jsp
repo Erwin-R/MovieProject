@@ -21,7 +21,7 @@
 			<p><a href="/home">Movie Spree</a></p>
 		</div>
 		<div id="search-container">
-			<form id="form" action="/search_movies">
+			<form id="form" action="/search_movies" method="post">
 				<input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
 				<button type="submit"><i class="fa fa-search"></i></button>
 			</form>
@@ -66,20 +66,40 @@
 				<div class="movie-description">
 					<h3>Overview</h3>
 					<p>${popularMovie.overview}</p>
+					<p>${popularMovie.id}</p>
+					<p>${watchList}</p>
 					<div class="d-flex">
-						<form:form action="/addMovie" method="POST" modelAttribute="movies">
-							<form:input type="hidden" path="user" value="${id}"></form:input>
-							<form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
-							<form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
-							<form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
-							<form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
-							<form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
-							<form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
-							<input type="submit" class="btn me-2" value="Add to Playlist">
-						</form:form>
-						<form action="/movie/${popularMovie.id}/details">
-							<input type="submit" class="btn" value="More Details">
-						</form>
+						<c:choose>
+							<c:when test="${id == null}">
+								<form action="/movie/${popularMovie.id}/details">
+									<input type="submit" class="btn" value="More Details">
+								</form>
+							</c:when>
+							<c:when test="${id != null && watchList.contains(popularMovie.id)}">
+								<form action="/removeMovie/${popularMovie.id}" method="POST">
+									<input type="hidden" name="_method" value="delete">
+									<input type="submit" class="btn me-2" value="Remove From Watchlist">
+								</form>
+								<form action="/movie/${popularMovie.id}/details">
+									<input type="submit" class="btn" value="More Details">
+								</form>
+							</c:when>
+							<c:when test="${id != null}">
+								<form:form action="/addMovie" method="POST" modelAttribute="movies">
+									<form:input type="hidden" path="user" value="${id}"></form:input>
+									<form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
+									<form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
+									<form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
+									<form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
+									<form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
+									<form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
+									<input type="submit" class="btn me-2" value="Add to Watchlist">
+								</form:form>
+								<form action="/movie/${popularMovie.id}/details">
+									<input type="submit" class="btn" value="More Details">
+								</form>
+							</c:when>
+						</c:choose>
 					</div>
 				</div>
 			</div>

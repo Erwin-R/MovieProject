@@ -1,5 +1,7 @@
 package com.erwinr.movieproject.Services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -8,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import com.erwinr.movieproject.Models.LoginUser;
+import com.erwinr.movieproject.Models.Movie;
 import com.erwinr.movieproject.Models.User;
 import com.erwinr.movieproject.Repositories.UserRepository;
+
 
 @Service
 public class UserService {
@@ -87,5 +91,18 @@ public class UserService {
 	// Deletes user if needed
 	public void deleteUser(Long id) {
 		userRepo.deleteById(id);
+	}
+
+	public List<Integer> findUserMovies(Long id){
+		User user = this.getUser(id);
+		if(user == null){
+			return null;
+		}
+		List<Integer> movieList = new ArrayList<>();
+		for(Movie movie: user.getMovies()){
+			movieList.add(movie.getMovie_id());
+		}
+		System.out.println(movieList);
+		return movieList;
 	}
 }

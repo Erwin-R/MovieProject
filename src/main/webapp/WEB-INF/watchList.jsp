@@ -21,10 +21,10 @@
 			<p><a href="/home">Movie Spree</a></p>
 		</div>
 		<div id="search-container">
-			<form id="form" action="/search_movies">
-                <input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+			<form id="form">
+				<input id="search" class="search-bar" placeholder="Search..." type="text"></input>
+				<button type="submit"><i class="fa fa-search"></i></button>
+			</form>
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
@@ -68,6 +68,10 @@
 					<h3>Synopsis</h3>
 					<p>${watchListMovie.overview}</p>
 					<div class="d-flex">
+						<form action="/removeMovie/${watchListMovie.id}" method="POST">
+							<input type="hidden" name="_method" value="delete">
+							<input type="submit" class="btn me-2" value="Remove From Watchlist">
+						</form>
 						<form action="/movie/${watchListMovie.movie_id}/details">
 							<input type="submit" class="btn" value="More Details">
 						</form>
@@ -76,7 +80,7 @@
 			</div>
 		</c:forEach>
 	</div>
-
+<!-- 
 	<div class="page-list">
 		<div class="page" id="previous-page">
 			<p>Previous</p> 
@@ -87,7 +91,7 @@
 		<div class="page" id="next">
 			<p>Next</p>
 		</div>
-	</div>
+	</div> -->
 
 
 	<script type="text/javascript" src="/js/trending.js"></script>

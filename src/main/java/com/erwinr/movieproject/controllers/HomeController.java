@@ -1,7 +1,5 @@
 package com.erwinr.movieproject.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -9,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +23,11 @@ import com.erwinr.movieproject.Services.UserService;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.TmdbPeople;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
-import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
-import info.movito.themoviedbapi.model.people.PersonCredits;
-import info.movito.themoviedbapi.model.people.PersonPeople;
+import javafx.beans.binding.Binding;
 
 @Controller
 public class HomeController {
@@ -100,7 +96,7 @@ public class HomeController {
 		}
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("userName", user.getUserName());
-		// emailServ.sendMessage(newUser.getEmail(), "Movie Spree", "Thank you, " + newUser.getUserName() + " for registering to the best web site for movies ever made!!!");
+		emailServ.sendMessage(newUser.getEmail(), "Movie Spree", "Thank you, " + newUser.getUserName() + " for registering to the best web site for movies ever made!!!");
 		return "redirect:/home";
 	}
 	
@@ -118,21 +114,26 @@ public class HomeController {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
+		Long id =(Long)session.getAttribute("userId");
+
 		model.addAttribute("popularMovies", popularMovies);
 		model.addAttribute("movies", new Movie());
 		model.addAttribute("id", session.getAttribute("userId"));
+		model.addAttribute("watchList", userServ.findUserMovies(id));
 		return "trending_page.jsp";
 	}
 
 
 	@GetMapping("/movie/{movieId}/details")
-	public String showMovieDetails(@PathVariable("movieId") int movieId, @ModelAttribute("movies") Movie addMovie, Model model, HttpSession session) {
+	public String showDetails(@PathVariable("movieId") int movieId, @ModelAttribute("movies") Movie addMovie, Model model, HttpSession session) {
 		model.addAttribute("movieId", movieId);
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieDb movie = movies.getMovie(movieId,"en", MovieMethod.images, MovieMethod.videos, MovieMethod.credits, MovieMethod.similar);
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
+		Long id =(Long)session.getAttribute("userId");
+		model.addAttribute("watchList", userServ.findUserMovies(id));
 		model.addAttribute("movie", movie);
 		return "showMovie.jsp";
 	}
@@ -149,6 +150,16 @@ public class HomeController {
 		}
 		return "redirect:/watchlist";
 	}
+
+	@DeleteMapping("/removeMovie/{movieId}")
+	public String removeMovie(@PathVariable("movieId") Long id, HttpSession session){
+		if(session.getAttribute("userId") == null) {
+			return "redirect:/home";
+		}
+		movieServ.deleteMovie(id);
+		return "redirect:/watchlist";
+	}
+
 
 	@GetMapping("/contact")
 	public String sendContact(HttpSession session, Model model){
@@ -178,7 +189,7 @@ public class HomeController {
 	}
 
 
-	@GetMapping("/search_movies")
+	@PostMapping("search_movies")
 	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model, HttpSession session) {
 		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
@@ -188,23 +199,6 @@ public class HomeController {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
 		return "searchResults.jsp";
-	}
-
-	@GetMapping("/person/{personId}/details")
-	public String showPersonDetails(@PathVariable("personId") int personId, Model model, HttpSession session) {
-		model.addAttribute("personId", personId);
-		TmdbPeople people = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getPeople();
-		PersonPeople person = people.getPersonInfo(personId);
-		PersonCredits personCredits = people.getCombinedPersonCredits(personId);
-		List<Artwork> personImages = people.getPersonImages(personId);
-		if (session.getAttribute("userId") != null) {
-			model.addAttribute("id", session.getAttribute("userId"));
-		}
-		model.addAttribute("person", person);
-		model.addAttribute("personCredits", personCredits);
-		model.addAttribute("personImages", personImages);
-		
-		return "showPerson.jsp";
 	}
 
 }

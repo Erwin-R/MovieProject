@@ -21,7 +21,7 @@
             <p><a href="/home">Movie Spree</a></p>
         </div>
         <div id="search-container">
-            <form id="form" action="/search_movies">
+            <form id="form" action="/search_movies" method="post">
                 <input id="search" name="searchCriteria" class="search-bar" placeholder="Search..." type="text"></input>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -45,18 +45,26 @@
     <div id="main" class="container mx-auto mt-5">
         <div class="movie">
             <div class="title-bar text-light">
-                <c:if test="${id != null}">
-                    <form:form action="/addMovie" method="POST" modelAttribute="movies">
-                        <form:input type="hidden" path="user" value="${id}"></form:input>
-                        <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
-                        <form:input type="hidden" path="title" value="${movie.title}"></form:input>
-                        <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
-                        <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
-                        <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
-                        <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
-                        <input type="submit" class="btn btn-warning mb-3" value="Add to Playlist">
-                    </form:form>
-                </c:if>
+                <c:choose>
+                    <c:when test="${id != null && watchList.contains(movie.id)}">
+                        <form action="/removeMovie/${movie.id}" method="POST">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="submit" class="btn btn-warning mb-3" value="Remove From Watchlist">
+                        </form>
+                    </c:when>
+                    <c:when test="${id != null}">
+                        <form:form action="/addMovie" method="POST" modelAttribute="movies">
+                            <form:input type="hidden" path="user" value="${id}"></form:input>
+                            <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
+                            <form:input type="hidden" path="title" value="${movie.title}"></form:input>
+                            <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
+                            <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
+                            <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
+                            <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
+                            <input type="submit" class="btn btn-warning mb-3" value="Add to Watchlist">
+                        </form:form>
+                    </c:when>
+                </c:choose>
                 <div class="title-header d-flex justify-content-start align-items-end gap-5">
                     <input id="movie_id" type="hidden" value="${id}">
                     <h1 id="title" class="title-text fst-italic">${movie.title}</h1>
@@ -71,16 +79,7 @@
             <div class="d-flex flex-row row">
                 <div class="left-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="poster card">
-                        <c:choose>
-                            <c:when test="${movie.posterPath != null}">
-                                <img src="https://image.tmdb.org/t/p/w500${movie.posterPath}" alt="MoviePoster">
-                            </c:when>
-                            <c:otherwise>
-                                <div style="background-color: gray; height: 400px; width: 100%;" class="no-poster">
-                                    <p class="text-center text-light text-wrap">Poster Not Available</p>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
+                        <img src="https://image.tmdb.org/t/p/w500${movie.posterPath}" alt="Movie Poster">
                     </div>
                     <div class="genres card p-2">
                         <div class="genre-header">
@@ -96,7 +95,7 @@
                         </div>
                         <c:forEach var="crewMember" items="${movie.credits.crew}">
                             <c:if test="${crewMember.job == 'Director'}">
-                                <p><a href="/person/${crewMember.id}/details">${crewMember.name}</a></p>
+                                <p>${crewMember.name}</p>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -106,7 +105,7 @@
                         </div>
                         <c:forEach var="crewMember" items="${movie.credits.crew}">
                             <c:if test="${crewMember.department == 'Writing'}">
-                                <p><a href="/person/${crewMember.id}/details">${crewMember.name}</a> - ${crewMember.job}</p>
+                                <p>${crewMember.name} - ${crewMember.job}</p>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -130,19 +129,17 @@
                         <div class="cast-header">
                             <h4 class="mb-3">Top Cast</h4>
                         </div>
-                        <div class="container d-flex flex-wrap align-self-center gap-3">
+                        <div class="container d-flex flex-row-wrap justify-content-between gap-3">
                             <c:forEach var="castMember" items="${movie.credits.cast}">
-                                <c:if test="${castMember.order < 10}">
-                                    <div style="width: 100px; height: auto;"> 
+                                <c:if test="${castMember.order < 5}">
+                                    <div> 
                                         <c:if test="${castMember.profilePath != ''}">
-                                            <a href="/person/${castMember.id}/details">
-                                                <img class="cast_member"
+                                            <img class="cast_member"
                                                     src="https://image.tmdb.org/t/p/w500${castMember.profilePath}"
                                                     alt="Actor/actress image">
-                                            </a>
                                         </c:if>
-                                        <p class="cast_member_name text-wrap">${castMember.name}</p>
-                                        <p class="cast_member_char text-secondary text-wrap fst-italic">
+                                        <p class="cast_member_name">${castMember.name}</p>
+                                        <p class="cast_member_char text-secondary">
                                             ${castMember.character}</p>
                                     </div>
                                 </c:if>
@@ -163,11 +160,20 @@
                         </c:if>
                         </c:forEach>
                     </div>
+                    <div class="card">
+                        <div class="trailers-header">
+                            <h4  class="mb-3">User Reviews</h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="right-column d-flex flex-column justify-content-start gap-3 col-3">
                     <div class="other-details card p-2">
                         <h4 class="mb-3">Status</h4>
                         <p id="status">${movie.status}</p>
+                        <h4 class="mb-3">Spoken Languages</h4>
+                        <c:forEach var="language" items="${movie.spokenLanguages}">
+                            <p id="original_language">${language.name}</p>
+                        </c:forEach>
                         <h4 class="mb-3">Budget</h4>
                         <p id="budget">
                             <fmt:formatNumber value="${movie.budget}" type="currency" />
