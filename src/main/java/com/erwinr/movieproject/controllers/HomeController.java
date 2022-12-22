@@ -1,5 +1,7 @@
 package com.erwinr.movieproject.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,10 +25,14 @@ import com.erwinr.movieproject.Services.UserService;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbPeople;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
+import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
+import info.movito.themoviedbapi.model.people.PersonCredits;
+import info.movito.themoviedbapi.model.people.PersonPeople;
 import javafx.beans.binding.Binding;
 
 @Controller
@@ -199,6 +205,23 @@ public class HomeController {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
 		return "searchResults.jsp";
+	}
+
+	@GetMapping("/person/{personId}/details")
+	public String showPersonDetails(@PathVariable("personId") int personId, Model model, HttpSession session) {
+		model.addAttribute("personId", personId);
+		TmdbPeople people = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getPeople();
+		PersonPeople person = people.getPersonInfo(personId);
+		PersonCredits personCredits = people.getCombinedPersonCredits(personId);
+		List<Artwork> personImages = people.getPersonImages(personId);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
+		model.addAttribute("person", person);
+		model.addAttribute("personCredits", personCredits);
+		model.addAttribute("personImages", personImages);
+		
+		return "showPerson.jsp";
 	}
 
 }
