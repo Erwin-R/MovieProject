@@ -1,5 +1,7 @@
 package com.erwinr.movieproject.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +26,15 @@ import com.erwinr.movieproject.Services.UserService;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbPeople;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
+import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
+import info.movito.themoviedbapi.model.people.PersonCredits;
+import info.movito.themoviedbapi.model.people.PersonPeople;
+import javafx.beans.binding.Binding;
 
 @Controller
 public class HomeController {
@@ -46,7 +54,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieResultsPage topRatedMovies = movies.getTopRatedMovies("en", 1);
 		MovieResultsPage nowPlaying = movies.getNowPlayingMovies("en", 1, "US");
@@ -54,6 +62,9 @@ public class HomeController {
 		model.addAttribute("topRatedMovies", topRatedMovies);
 		model.addAttribute("nowPlayingItems", nowPlaying);
 		model.addAttribute("upcomingMovies", upcomingMovies);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		return "home.jsp";
 	}
 	
@@ -98,7 +109,7 @@ public class HomeController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/home";
 	}
 
 	@GetMapping("/trending/movies")
@@ -106,9 +117,18 @@ public class HomeController {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
 		MovieResultsPage popularMovies = movies.getPopularMovies("en", 1);
 		System.out.println(popularMovies);
+
+
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
+		Long id =(Long)session.getAttribute("userId");
+
+
 		model.addAttribute("popularMovies", popularMovies);
 		model.addAttribute("movies", new Movie());
 		model.addAttribute("id", session.getAttribute("userId"));
+		model.addAttribute("watchList", userServ.findUserMovies(id));
 		return "trending_page.jsp";
 	}
 
@@ -121,6 +141,8 @@ public class HomeController {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
 		}
+		Long id =(Long)session.getAttribute("userId");
+		model.addAttribute("watchList", userServ.findUserMovies(id));
 		model.addAttribute("movie", movie);
 		return "showMovie.jsp";
 	}
@@ -132,14 +154,45 @@ public class HomeController {
 		// }
 		model.addAttribute("id", session.getAttribute("userId"));
 		movieServ.create(movie);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		return "redirect:/watchlist";
 	}
+
+	@DeleteMapping("/removeMovie/{movieId}")
+	public String removeMovie(@PathVariable("movieId") Long id, HttpSession session){
+		if(session.getAttribute("userId") == null) {
+			return "redirect:/home";
+		}
+		movieServ.deleteMovie(id);
+		return "redirect:/watchlist";
+	}
+
+
+
+
+	@GetMapping("/contact")
+	public String sendContact(HttpSession session, Model model){
+		Long userId = (Long) session.getAttribute("userId");
+		User u = userServ.findById(userId);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
+		model.addAttribute("user", u);
+		emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts", "Hello, " + u.getUserName() + " here is our contact info");
+		return "";
+	}
+
+
 
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session){
 		// Long userId = (Long) session.getAttribute("userId");
 		// User user = userServ.findById(userId);
-		
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
 		model.addAttribute("watchMovies", movieServ.allMovies());
 		// if(session.getAttribute("userId") == null) {
 			// 	return "redirect:/register_page";
@@ -156,6 +209,7 @@ public class HomeController {
 			return "searchResults.jsp";
 		}
 
+
 		@PostMapping("/send/contact")
 		public String sendContact(@Valid @ModelAttribute("formdata")Contact contact, BindingResult result, HttpSession session, Model model){
 			emailServ.recieveMessage("User Contact", "The user " + contact.getFullName() + " with email contact at " + contact.getEmail() + " is asking us " + contact.getQuestion());
@@ -169,3 +223,36 @@ public class HomeController {
 		
 	}
 	
+
+	@PostMapping("search_movies")
+	public String searchMovies(@RequestParam(value="searchCriteria") String searchCriteria, Model model, HttpSession session) {
+		// TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
+		MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
+		model.addAttribute("movieSearch", movieSearch);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
+		return "searchResults.jsp";
+	}
+
+	@GetMapping("/person/{personId}/details")
+	public String showPersonDetails(@PathVariable("personId") int personId, Model model, HttpSession session) {
+		model.addAttribute("personId", personId);
+		TmdbPeople people = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getPeople();
+		PersonPeople person = people.getPersonInfo(personId);
+		PersonCredits personCredits = people.getCombinedPersonCredits(personId);
+		List<Artwork> personImages = people.getPersonImages(personId);
+		if (session.getAttribute("userId") != null) {
+			model.addAttribute("id", session.getAttribute("userId"));
+		}
+		model.addAttribute("person", person);
+		model.addAttribute("personCredits", personCredits);
+		model.addAttribute("personImages", personImages);
+		
+		return "showPerson.jsp";
+	}
+
+}
+
+

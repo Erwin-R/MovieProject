@@ -28,14 +28,22 @@
 		</div>
 		<div id="pages">
 			<ul class="d-flex justify-content-evenly align-items-center" id="nav-list">
-				<li><a class="active" href="/trending/movies">Trending</a></li>
-				<li><a href="/contact">Contact</a></li>
-				<li><a href="/logout"><button class="login-btn">Log Out</button></a></li>
+				<li><a href="/trending/movies">Trending</a></li>
+				<li><a href="/watchlist" class="nav-link active">Watchlist</a></li>
+				<li><a href="#">Contact</a></li>
+				<c:choose>
+					<c:when test="${id == null}">
+						<li><a href="/login_page"><button class="login-btn">Sign in</button></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="/logout"><button class="login-btn">Log Out</button></a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>			
 		</div>
 	</div>
 	<div id="title">
-		<h1>Your must see movies!</h1>
+		<h1 class="text-center">Your must see movies!</h1>
 	</div>
 	<div id="main">
 		<c:forEach var="watchListMovie" items="${watchMovies}">
@@ -60,7 +68,11 @@
 					<h3>Synopsis</h3>
 					<p>${watchListMovie.overview}</p>
 					<div class="d-flex">
-						<form action="/movie//details">
+						<form action="/removeMovie/${watchListMovie.id}" method="POST">
+							<input type="hidden" name="_method" value="delete">
+							<input type="submit" class="btn me-2" value="Remove From Watchlist">
+						</form>
+						<form action="/movie/${watchListMovie.movie_id}/details">
 							<input type="submit" class="btn" value="More Details">
 						</form>
 					</div>
@@ -68,7 +80,7 @@
 			</div>
 		</c:forEach>
 	</div>
-
+<!-- 
 	<div class="page-list">
 		<div class="page" id="previous-page">
 			<p>Previous</p> 
@@ -79,7 +91,7 @@
 		<div class="page" id="next">
 			<p>Next</p>
 		</div>
-	</div>
+	</div> -->
 
 
 	<script type="text/javascript" src="/js/trending.js"></script>

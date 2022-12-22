@@ -74,11 +74,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.github.holgerbrandl</groupId>
-			<artifactId>themoviedbapi</artifactId>
-			<version>1.12</version>
-		</dependency>
 	    <!-- webjars locator dependency enables auto-detection of the version, so your .jsp 
 	        file links are version-agnostic in case you update the versions here in your pom later -->
 	    <dependency>
@@ -91,13 +86,18 @@
 	    <dependency>
 	        <groupId>org.webjars</groupId>
 	        <artifactId>bootstrap</artifactId>
-	        <version>5.0.1</version>
+	        <version>5.2.3</version>
 	    </dependency>
 	    <dependency>
 	        <groupId>org.webjars</groupId>
 	        <artifactId>jquery</artifactId>
 	        <version>3.6.0</version>
 	    </dependency>
+		<dependency>
+			<groupId>com.github.holgerbrandl</groupId>
+			<artifactId>themoviedbapi</artifactId>
+			<version>1.12</version>
+		</dependency>
 	</dependencies>
 
 	<build>
