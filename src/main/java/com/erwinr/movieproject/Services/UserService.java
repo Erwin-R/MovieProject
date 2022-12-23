@@ -105,4 +105,18 @@ public class UserService {
 		System.out.println(movieList);
 		return movieList;
 	}
+
+
+	public List<Long> findUserMoviesReturnRecordId(Long id){
+		User user = this.getUser(id);
+		if(user == null){
+			return null;
+		}
+		List<Long> movieRecord = new ArrayList<>();
+		for(Movie movie: user.getMovies()){
+			movieRecord.add(movie.getId());
+		}
+		System.out.println(movieRecord);
+		return movieRecord;
+	}
 }

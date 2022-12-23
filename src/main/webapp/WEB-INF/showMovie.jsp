@@ -45,9 +45,8 @@
     <div id="main" class="container mx-auto mt-5">
         <div class="movie">
             <div class="title-bar text-light">
-
                 <div class="title-header d-flex justify-content-start align-items-end gap-5">
-                    <input id="movie_id" type="hidden" value="${id}">
+
                     <h1 id="title" class="title-text fst-italic">${movie.title}</h1>
                     <p id="release_date" class="title-text fst-italic">Released: ${movie.releaseDate}</p>
                     <p id="runtime" class="title-text fst-italic">Runtime: ${movie.runtime}m</p>
@@ -202,14 +201,17 @@
                     <h3>Your Review</h3>
                     <form:form action="/movie/comment/${movie.id}" method="POST" modelAttribute="newComment">
                         <form:errors path="commentInfo" class="text-danger"></form:errors>
-                        <form:textarea path="commentInfo" class="form-control" rows="8"></form:textarea>
-                        <input type="submit" class="btn btn-dark mt-2 text-warning" value="Submit"/>
+                        <form:textarea path="commentInfo" row="10"></form:textarea>
+                        <form:hidden path="id" value="${movie.id}"></form:hidden>
+                        <input type="submit" class="btn btn-dark text-warning" value="Submit Review"></input>
                     </form:form>
                 </div>
                 <div id="comments" class="p-3">
-                    <h3>User said:</h3>
-                    <p>This is an example comment. This comment is the best!</p>
-                    <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
+                    <c:forEach var="comment" items="${movieComments}">
+                        <h3>${comment.creator.userName} said:</h3>
+                        <p>${comment.commentInfo}</p>
+                        <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
+                    </c:forEach>
                 </div>
                 <div id="comments" class="p-3">
                     <h3>User said:</h3>
