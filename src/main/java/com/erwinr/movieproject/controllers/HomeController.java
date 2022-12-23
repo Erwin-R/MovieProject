@@ -52,12 +52,13 @@ public class HomeController {
 	@Autowired
 	CommentService commentServ;
 
-
+	// default route - redirect to home page
 	@GetMapping("/")
 	public String index() {
 		return "redirect:/home";
 	}
 
+	// home page to show trending, playing now, and upcoming movies
 	@GetMapping("/home")
 	public String home(Model model, HttpSession session) {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
@@ -73,11 +74,13 @@ public class HomeController {
 		return "home.jsp";
 	}
 
+	// display login form
 	@GetMapping("/login_page")
 	public String login_page(@ModelAttribute("newLogin") LoginUser newLogin) {
 		return "login.jsp";
 	}
 
+	// process login form
 	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
 			BindingResult result, Model model, HttpSession session) {
@@ -91,12 +94,14 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
+	// display register form
 	@GetMapping("/register_page")
 	public String register_page(Model model) {
 		model.addAttribute("newUser", new User());
 		return "register.jsp";
 	}
 
+	// process register form
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute("newUser") User newUser,
 			BindingResult result, Model model, HttpSession session) {
@@ -112,12 +117,14 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
+	// logout user
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";
 	}
 
+	// display trending movie page
 	@GetMapping("/trending/movies")
 	public String trending_page(Model model, HttpSession session) {
 		TmdbMovies movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
@@ -135,6 +142,7 @@ public class HomeController {
 		return "trending_page.jsp";
 	}
 
+	// display movie details page
 	@GetMapping("/movie/{movieId}/details")
 	public String showDetails(@PathVariable("movieId") int movieId, @ModelAttribute("movies") Movie addMovie,
 			Model model, HttpSession session) {
@@ -152,20 +160,18 @@ public class HomeController {
 			model.addAttribute("id", id);
 			// model.addAttribute("watchList", userServ.findUserMovies(id));
 			model.addAttribute("userWatchlistMovie", movieServ.findWatchlistMovie(userServ.findById(id), movieId));
-			// model.addAttribute("newComment", new Comment());
-			// model.addAttribute("movieComments", commentServ.movieComments((long) movie.getId()));
-			// System.out.println(userServ.findUserMovies(id));
+			model.addAttribute("newComment", new Comment());
+			model.addAttribute("movieComments", commentServ.findMovieComments(movieId));
 			System.out.println(movieServ.findWatchlistMovie(userServ.findById(id), movieId));
 		}		
 		return "showMovie.jsp";
 	}
 
+	// process "add to play/watchlist"
 	@PostMapping("/addMovie")
 	public String addMovie(@Valid @ModelAttribute("movies") Movie movie, BindingResult result, Model model,
 			HttpSession session) {
-		// if(session.getAttribute("userId") == null) {
-		// return "redirect:/register_page";
-		// }
+
 		Long id = (Long) session.getAttribute("userId");
 		if (id != null) {
 			model.addAttribute("id", id);
@@ -174,6 +180,7 @@ public class HomeController {
 		return "redirect:/watchlist";
 	}
 
+	// process "remove from play/watchlist"
 	@DeleteMapping("/removeMovie/{movieId}")
 	public String removeMovie(@PathVariable("movieId") Long id, HttpSession session) {
 		if (session.getAttribute("userId") == null) {
@@ -183,7 +190,7 @@ public class HomeController {
 		return "redirect:/watchlist";
 	}
 
-
+	// display user's watchlist
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session) {
 		Long id = (Long) session.getAttribute("userId");
@@ -195,7 +202,7 @@ public class HomeController {
 		return "watchList.jsp";
 	}
 
-
+	// process contact form
 	@PostMapping("/send/contact")
 	public String sendContact(@Valid @ModelAttribute("formdata") Contact contact, BindingResult result,
 			HttpSession session, Model model) {
@@ -204,17 +211,18 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
+	// display contact form
 	@GetMapping("/contact")
 	public String contactpage(@ModelAttribute("formdata") Contact contact, BindingResult result, HttpSession session,
 			Model model) {
 		return "contact.jsp";
 	}
 
+	// process/display search results
 	@GetMapping("search_movies")
 	public String searchMovies(@RequestParam(value = "searchCriteria") String searchCriteria, Model model,
 			HttpSession session) {
-		// TmdbMovies movies = new
-		// TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
+
 		TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
 		MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
 		model.addAttribute("movieSearch", movieSearch);
@@ -224,6 +232,7 @@ public class HomeController {
 		return "searchResults.jsp";
 	}
 
+	// display person details page
 	@GetMapping("/person/{personId}/details")
 	public String showPersonDetails(@PathVariable("personId") int personId, Model model, HttpSession session) {
 		model.addAttribute("personId", personId);
@@ -241,21 +250,29 @@ public class HomeController {
 		return "showPerson.jsp";
 	}
 
+	// process new comment on a movie
+	@PostMapping("/movie/comment/{id}")
+	public String addComment(@Valid @ModelAttribute("newComment") Comment comment, 
+			BindingResult result, Model model, HttpSession session, 
+			@PathVariable("id") Integer movieId){
 
-	// @PostMapping("/movie/comment/{id}")
-	// public String addComment(@Valid @ModelAttribute("newComment") Comment comment, BindingResult result, Model model, HttpSession session, @PathVariable("id") Long id){
-	// 	Long userId =(Long) session.getAttribute("userId");
-	// 	Movie thisMovie = movieServ.findById(userId);
-	// 	if(result.hasErrors()){
-	// 		model.addAttribute("oneMovie", movieServ.findById(id));
-	// 		model.addAttribute("movieComments", commentServ.movieComments(id));
-	// 		return "showMovie.jsp";
-	// 	} else{
-	// 		Comment newComment = new Comment(comment.getCommentInfo());
-	// 		newComment.setMovie(thisMovie);
-	// 		newComment.setCreator(userServ.findById(userId));
-	// 		commentServ.addComment(newComment);
-	// 		return "redirect:/movie/" +id +"/details";
-	// 	}
-	// }
+		// Grab userId from session
+		Long userId =(Long) session.getAttribute("userId");
+
+		// Check validation on comment form
+		if(result.hasErrors()){
+			// There were errors, so stay on this page and keep what the user entered
+			model.addAttribute("apiMovieId", movieId);
+			model.addAttribute("movieComments", commentServ.findMovieComments(movieId));
+			return "showMovie.jsp";
+		} else{
+			// Everything's good, go ahead and create the comment in the db
+			Comment newComment = new Comment(comment.getCommentInfo());
+			newComment.setApiMovieId(movieId);
+			newComment.setCreator(userServ.findById(userId));
+			commentServ.addComment(newComment);
+			// Redirect to the same Movie Details page
+			return "redirect:/movie/" + movieId +"/details";
+		}
+	}
 }
