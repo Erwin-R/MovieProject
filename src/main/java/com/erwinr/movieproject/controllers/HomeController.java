@@ -146,18 +146,17 @@ public class HomeController {
 		model.addAttribute("movie", movie);
 
 		// check if user is logged in. If they are, get their watchlist
+		// If there is any code that only applies to logged-in users, put it below!
 		Long id = (Long) session.getAttribute("userId");
-		if (session.getAttribute("userId") != null) {
+		if (id != null) {
 			model.addAttribute("id", id);
-			model.addAttribute("watchList", userServ.findUserMovies(id));
-			// model.addAttribute("movieRecord", movieServ.findByUser(addMovie));
-			model.addAttribute("newComment", new Comment());
-			model.addAttribute("movieComments", commentServ.movieComments((long) movie.getId()));
-		}
-		
-		System.out.println(userServ.findUserMovies(id));
-
-
+			// model.addAttribute("watchList", userServ.findUserMovies(id));
+			model.addAttribute("userWatchlistMovie", movieServ.findWatchlistMovie(userServ.findById(id), movieId));
+			// model.addAttribute("newComment", new Comment());
+			// model.addAttribute("movieComments", commentServ.movieComments((long) movie.getId()));
+			// System.out.println(userServ.findUserMovies(id));
+			System.out.println(movieServ.findWatchlistMovie(userServ.findById(id), movieId));
+		}		
 		return "showMovie.jsp";
 	}
 
@@ -167,10 +166,10 @@ public class HomeController {
 		// if(session.getAttribute("userId") == null) {
 		// return "redirect:/register_page";
 		// }
-		model.addAttribute("id", session.getAttribute("userId"));
-		movieServ.create(movie);
-		if (session.getAttribute("userId") != null) {
-			model.addAttribute("id", session.getAttribute("userId"));
+		Long id = (Long) session.getAttribute("userId");
+		if (id != null) {
+			model.addAttribute("id", id);
+			movieServ.create(movie);
 		}
 		return "redirect:/watchlist";
 	}
@@ -187,15 +186,12 @@ public class HomeController {
 
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session) {
-		// Long userId = (Long) session.getAttribute("userId");
+		Long id = (Long) session.getAttribute("userId");
 		// User user = userServ.findById(userId);
-		if (session.getAttribute("userId") != null) {
+		if (id != null) {
 			model.addAttribute("id", session.getAttribute("userId"));
+			model.addAttribute("watchlistMovies", movieServ.allMovies());
 		}
-		model.addAttribute("watchMovies", movieServ.allMovies());
-		// if(session.getAttribute("userId") == null) {
-		// return "redirect:/register_page";
-		// }
 		return "watchList.jsp";
 	}
 
@@ -246,20 +242,20 @@ public class HomeController {
 	}
 
 
-	@PostMapping("/movie/comment/{id}")
-	public String addComment(@Valid @ModelAttribute("newComment") Comment comment, BindingResult result, Model model, HttpSession session, @PathVariable("id") Long id){
-		Long userId =(Long) session.getAttribute("userId");
-		Movie thisMovie = movieServ.findById(userId);
-		if(result.hasErrors()){
-			model.addAttribute("oneMovie", movieServ.findById(id));
-			model.addAttribute("movieComments", commentServ.movieComments(id));
-			return "showMovie.jsp";
-		} else{
-			Comment newComment = new Comment(comment.getCommentInfo());
-			newComment.setMovie(thisMovie);
-			newComment.setCreator(userServ.findById(userId));
-			commentServ.addComment(newComment);
-			return "redirect:/movie/" +id +"/details";
-		}
-	}
+	// @PostMapping("/movie/comment/{id}")
+	// public String addComment(@Valid @ModelAttribute("newComment") Comment comment, BindingResult result, Model model, HttpSession session, @PathVariable("id") Long id){
+	// 	Long userId =(Long) session.getAttribute("userId");
+	// 	Movie thisMovie = movieServ.findById(userId);
+	// 	if(result.hasErrors()){
+	// 		model.addAttribute("oneMovie", movieServ.findById(id));
+	// 		model.addAttribute("movieComments", commentServ.movieComments(id));
+	// 		return "showMovie.jsp";
+	// 	} else{
+	// 		Comment newComment = new Comment(comment.getCommentInfo());
+	// 		newComment.setMovie(thisMovie);
+	// 		newComment.setCreator(userServ.findById(userId));
+	// 		commentServ.addComment(newComment);
+	// 		return "redirect:/movie/" +id +"/details";
+	// 	}
+	// }
 }

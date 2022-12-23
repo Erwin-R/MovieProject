@@ -39,7 +39,7 @@ public class CommentService {
         }
     }
 
-    public List<Comment> movieComments(Long movieId){
-        return commentRepo.findByMovieIdIs(movieId);
+    public List<Comment> movieComments(Integer apiMovieId){
+        return commentRepo.findByApiMovieId(apiMovieId);
     }
 }

@@ -70,20 +70,24 @@
 						<c:if test="${id != null}">
 							<c:choose>
 								<c:when test="${watchList.contains(popularMovie.id)}">
-									<form action="/removeMovie/${popularMovie.id}" method="POST">
-										<input type="hidden" name="_method" value="delete">
-										<input type="submit" class="btn me-2" value="Remove From Watchlist">
-									</form>
+									<c:forEach var="savedMovie" items="${watchList}">
+										<c:if test="${savedMovie.id == popularMovie.id}">
+											<form action="/removeMovie/${savedMovie.id}" method="POST">
+												<input type="hidden" name="_method" value="delete">
+												<input type="submit" class="btn me-2" value="Remove From Watchlist">
+											</form>
+										</c:if>
+									</c:forEach>
 								</c:when>
 								<c:otherwise>
 									<form:form action="/addMovie" method="POST" modelAttribute="movies">
 										<form:input type="hidden" path="user" value="${id}"></form:input>
-										<form:input type="hidden" path="movie_id" value="${popularMovie.id}"></form:input>
+										<form:input type="hidden" path="apiMovieId" value="${popularMovie.id}"></form:input>
 										<form:input type="hidden" path="title" value="${popularMovie.title}"></form:input>
-										<form:input type="hidden" path="poster_path" value="${popularMovie.posterPath}"></form:input>
-										<form:input type="hidden" path="vote_average" value="${popularMovie.voteAverage}"></form:input>
+										<form:input type="hidden" path="posterPath" value="${popularMovie.posterPath}"></form:input>
+										<form:input type="hidden" path="voteAverage" value="${popularMovie.voteAverage}"></form:input>
 										<form:input type="hidden" path="overview" value="${popularMovie.overview}"></form:input>
-										<form:input type="hidden" path="release_date" value="${popularMovie.releaseDate}"></form:input>
+										<form:input type="hidden" path="releaseDate" value="${popularMovie.releaseDate}"></form:input>
 										<input type="submit" class="btn me-2" value="Add to Watchlist">
 									</form:form>
 								</c:otherwise>

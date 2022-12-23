@@ -8,5 +8,5 @@ import com.erwinr.movieproject.Models.Comment;
 
 public interface CommentRepository extends CrudRepository<Comment, Long>{
     List<Comment>findAll();
-    List<Comment>findByMovieIdIs(Long id);
+    List<Comment>findByApiMovieId(Integer apiMovieId);
 }

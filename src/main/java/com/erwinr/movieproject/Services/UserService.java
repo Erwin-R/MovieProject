@@ -93,16 +93,16 @@ public class UserService {
 		userRepo.deleteById(id);
 	}
 
-	public List<Integer> findUserMovies(Long id){
+	public List<Movie> findUserMovies(Long id){
 		User user = this.getUser(id);
 		if(user == null){
 			return null;
 		}
-		List<Integer> movieList = new ArrayList<>();
-		for(Movie movie: user.getMovies()){
-			movieList.add(movie.getMovie_id());
-		}
-		System.out.println(movieList);
+		List<Movie> movieList = new ArrayList<>();
+		// for(Movie movie: user.getMovies()){
+		// 	movieList.add(movie.getapiMovieId());
+		// }
+		// System.out.println(movieList);
 		return movieList;
 	}
 

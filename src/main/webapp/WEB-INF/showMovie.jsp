@@ -46,7 +46,6 @@
         <div class="movie">
             <div class="title-bar text-light">
                 <div class="title-header d-flex justify-content-start align-items-end gap-5">
-
                     <h1 id="title" class="title-text fst-italic">${movie.title}</h1>
                     <p id="release_date" class="title-text fst-italic">Released: ${movie.releaseDate}</p>
                     <p id="runtime" class="title-text fst-italic">Runtime: ${movie.runtime}m</p>
@@ -146,8 +145,8 @@
                 <div class="right-column d-flex flex-column justify-content-start gap-3 col-3">
                     <c:if test="${id != null}">
                         <c:choose>
-                            <c:when test="${watchList.contains(movie.id)}">
-                                <form action="/removeMovie/${movie.id}" method="POST">
+                            <c:when test="${userWatchlistMovie.apiMovieId == movie.id}">
+                                <form action="/removeMovie/${userWatchlistMovie.id}" method="POST">
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="submit" class="watchlist-remove-btn" value="Remove From Watchlist">
                                 </form>
@@ -155,12 +154,12 @@
                             <c:otherwise>
                                 <form:form action="/addMovie" method="POST" modelAttribute="movies">
                                     <form:input type="hidden" path="user" value="${id}"></form:input>
-                                    <form:input type="hidden" path="movie_id" value="${movie.id}"></form:input>
+                                    <form:input type="hidden" path="apiMovieId" value="${movie.id}"></form:input>
                                     <form:input type="hidden" path="title" value="${movie.title}"></form:input>
-                                    <form:input type="hidden" path="poster_path" value="${movie.posterPath}"></form:input>
-                                    <form:input type="hidden" path="vote_average" value="${movie.voteAverage}"></form:input>
+                                    <form:input type="hidden" path="posterPath" value="${movie.posterPath}"></form:input>
+                                    <form:input type="hidden" path="voteAverage" value="${movie.voteAverage}"></form:input>
                                     <form:input type="hidden" path="overview" value="${movie.overview}"></form:input>
-                                    <form:input type="hidden" path="release_date" value="${movie.releaseDate}"></form:input>
+                                    <form:input type="hidden" path="releaseDate" value="${movie.releaseDate}"></form:input>
                                     <input type="submit" class="watchlist-btn" value="Add to Watchlist">
                                 </form:form>
                             </c:otherwise>
@@ -192,33 +191,7 @@
                     </div>
                 </div>
             </div>
-            <div id="comment-container">
-                <div class="d-flex justify-content-between p-3 align-items-center">
-                    <h1>User Reviews</h1>
-                    <a><button id="review-button" class="btn btn-dark text-warning">Write a Review!</button></a>
-                </div>
-                <div class="review-form p-3" style="display: none;">
-                    <h3>Your Review</h3>
-                    <form:form action="/movie/comment/${movie.id}" method="POST" modelAttribute="newComment">
-                        <form:errors path="commentInfo" class="text-danger"></form:errors>
-                        <form:textarea path="commentInfo" row="10"></form:textarea>
-                        <form:hidden path="id" value="${movie.id}"></form:hidden>
-                        <input type="submit" class="btn btn-dark text-warning" value="Submit Review"></input>
-                    </form:form>
-                </div>
-                <div id="comments" class="p-3">
-                    <c:forEach var="comment" items="${movieComments}">
-                        <h3>${comment.creator.userName} said:</h3>
-                        <p>${comment.commentInfo}</p>
-                        <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
-                    </c:forEach>
-                </div>
-                <div id="comments" class="p-3">
-                    <h3>User said:</h3>
-                    <p>This is an example comment. This comment is the best!</p>
-                    <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
-                </div>
-            </div>
+<!-- COMMENT DIV GOES HERE!!! -->
         </div>
     </div>
     <script type="text/javascript" src="/js/showMovie.js"></script>
