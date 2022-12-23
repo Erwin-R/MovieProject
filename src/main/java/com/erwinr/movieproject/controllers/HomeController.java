@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.erwinr.movieproject.Models.Comment;
 import com.erwinr.movieproject.Models.Contact;
 import com.erwinr.movieproject.Models.LoginUser;
 import com.erwinr.movieproject.Models.Movie;
 import com.erwinr.movieproject.Models.User;
+import com.erwinr.movieproject.Services.CommentService;
 import com.erwinr.movieproject.Services.EmailService;
 import com.erwinr.movieproject.Services.MovieService;
 import com.erwinr.movieproject.Services.UserService;
@@ -46,6 +48,10 @@ public class HomeController {
 
 	@Autowired
 	EmailService emailServ;
+
+	@Autowired
+	CommentService commentServ;
+
 
 	@GetMapping("/")
 	public String index() {
@@ -144,7 +150,14 @@ public class HomeController {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("id", id);
 			model.addAttribute("watchList", userServ.findUserMovies(id));
+			// model.addAttribute("movieRecord", movieServ.findByUser(addMovie));
+			model.addAttribute("newComment", new Comment());
+			model.addAttribute("movieComments", commentServ.movieComments((long) movie.getId()));
 		}
+		
+		System.out.println(userServ.findUserMovies(id));
+
+
 		return "showMovie.jsp";
 	}
 
@@ -171,18 +184,6 @@ public class HomeController {
 		return "redirect:/watchlist";
 	}
 
-	// @GetMapping("/contact")
-	// public String sendContact(HttpSession session, Model model) {
-	// 	Long userId = (Long) session.getAttribute("userId");
-	// 	User u = userServ.findById(userId);
-	// 	if (session.getAttribute("userId") != null) {
-	// 		model.addAttribute("id", session.getAttribute("userId"));
-	// 	}
-	// 	model.addAttribute("user", u);
-	// 	emailServ.sendMessage(u.getEmail(), "Movie Spree Contacts",
-	// 			"Hello, " + u.getUserName() + " here is our contact info");
-	// 	return "";
-	// }
 
 	@GetMapping("/watchlist")
 	public String watchlist(Model model, HttpSession session) {
@@ -198,15 +199,6 @@ public class HomeController {
 		return "watchList.jsp";
 	}
 
-	// @PostMapping("search_movies")
-	// public String searchMovies(@RequestParam(value = "searchCriteria") String searchCriteria, Model model) {
-	// 	// TmdbMovies movies = new
-	// 	// TmdbApi("5d9be5688e6be5edda3299019fd5922a").getMovies();
-	// 	TmdbSearch movies = new TmdbApi("5d9be5688e6be5edda3299019fd5922a").getSearch();
-	// 	MovieResultsPage movieSearch = movies.searchMovie(searchCriteria, null, searchCriteria, false, null);
-	// 	model.addAttribute("movieSearch", movieSearch);
-	// 	return "searchResults.jsp";
-	// }
 
 	@PostMapping("/send/contact")
 	public String sendContact(@Valid @ModelAttribute("formdata") Contact contact, BindingResult result,
@@ -253,4 +245,21 @@ public class HomeController {
 		return "showPerson.jsp";
 	}
 
+
+	@PostMapping("/movie/comment/{id}")
+	public String addComment(@Valid @ModelAttribute("newComment") Comment comment, BindingResult result, Model model, HttpSession session, @PathVariable("id") Long id){
+		Long userId =(Long) session.getAttribute("userId");
+		Movie thisMovie = movieServ.findById(userId);
+		if(result.hasErrors()){
+			model.addAttribute("oneMovie", movieServ.findById(id));
+			model.addAttribute("movieComments", commentServ.movieComments(id));
+			return "showMovie.jsp";
+		} else{
+			Comment newComment = new Comment(comment.getCommentInfo());
+			newComment.setMovie(thisMovie);
+			newComment.setCreator(userServ.findById(userId));
+			commentServ.addComment(newComment);
+			return "redirect:/movie/" +id +"/details";
+		}
+	}
 }

@@ -44,4 +44,12 @@ public class MovieService {
         movieRepo.deleteById(id);
     }
 
+    // public Movie findByUser(Integer movieId){
+    //     Optional<Long> possibleMovie = movieRepo.findByUser(movieId);
+    //     if(possibleMovie.isPresent()){
+    //         return possibleMovie.get();
+    //     } else{
+    //         return null;
+    //     }
+    // }
 }
