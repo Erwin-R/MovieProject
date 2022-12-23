@@ -191,7 +191,37 @@
                     </div>
                 </div>
             </div>
-<!-- COMMENT DIV GOES HERE!!! -->
+            <div id="comment-container" class="card mb-5">
+                <div class="d-flex justify-content-between p-3 align-items-center">
+                    <h4>User Reviews</h4>
+                    <a><button id="review-button" class="btn btn-dark text-warning">Write a Review!</button></a>
+                </div>
+                <div class="review-form p-3" style="display: none;">
+                    <h5>Your Review</h5>
+                    <form:form action="/movie/comment/${movie.id}" method="POST" modelAttribute="newComment">
+                        <form:errors path="commentInfo" class="text-danger"></form:errors>
+                        <form:textarea path="commentInfo" row="10" class="form-control mb-2"></form:textarea>
+                        <form:hidden path="apiMovieId" value="${movie.id}"></form:hidden>
+                        <input type="submit" class="btn btn-dark text-warning" value="Submit Review"></input>
+                    </form:form>
+                </div>
+                <div id="comments" class="p-3">
+                    <c:forEach var="comment" items="${movieComments}">
+                        <div class="border-bottom border-2 p-3 mb-3">
+                            <h5><span class="text-light fst-italic">${comment.creator.userName}</span> said:</h5>
+                            <p>${comment.commentInfo}</p>
+                            <p class="d-flex justify-content-end">
+                                <fmt:formatDate value="${comment.createdAt}" pattern="M/d/yyyy h:mm a"/>
+                            </p>
+                        </div>
+                    </c:forEach>
+                </div>
+                <!-- <div id="comments" class="p-3">
+                    <h3>User said:</h3>
+                    <p>This is an example comment. This comment is the best!</p>
+                    <p class="d-flex justify-content-end">Posted on 12/22/2022</p>
+                </div> -->
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="/js/showMovie.js"></script>

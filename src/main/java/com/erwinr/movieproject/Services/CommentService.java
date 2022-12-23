@@ -14,22 +14,27 @@ public class CommentService {
     @Autowired
     CommentRepository commentRepo;
 
+    // get all comment records
     public List<Comment> allComments(){
         return commentRepo.findAll();
     }
 
+    // create new comment
     public Comment addComment(Comment comment){
         return commentRepo.save(comment);
     }
 
+    // update existing comment
     public Comment updateComment(Comment comment){
         return commentRepo.save(comment);
     }
 
-    public void deleteNote(Comment comment){
+    // delete comment
+    public void deleteComment(Comment comment){
         commentRepo.delete(comment);
     }
 
+    // find comment by record ID
     public Comment findOneComment(Long id){
         Optional<Comment> oneComment = commentRepo.findById(id);
         if(oneComment.isPresent()){
@@ -39,7 +44,8 @@ public class CommentService {
         }
     }
 
-    public List<Comment> movieComments(Integer apiMovieId){
+    // find list of comments for one movie
+    public List<Comment> findMovieComments(Integer apiMovieId){
         return commentRepo.findByApiMovieId(apiMovieId);
     }
 }

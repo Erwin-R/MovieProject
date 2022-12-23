@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="comments")
 public class Comment {
+    
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -52,12 +53,16 @@ public class Comment {
     private Integer apiMovieId;
 
     
+    // Zero-argument constructor
     public Comment(){}
     
+    // Overloaded constructor
     public Comment(String commentInfo){
         this.commentInfo = commentInfo;
     }
     
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
