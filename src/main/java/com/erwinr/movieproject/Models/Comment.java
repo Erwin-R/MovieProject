@@ -49,62 +49,61 @@ public class Comment {
     @JoinColumn(name="comment_id")
     private User creator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    private Integer apiMovieId;
 
+    
     public Comment(){}
-
+    
     public Comment(String commentInfo){
         this.commentInfo = commentInfo;
     }
-
+    
     public Long getId() {
         return id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getCommentInfo() {
         return commentInfo;
     }
-
+    
     public void setCommentInfo(String commentInfo) {
         this.commentInfo = commentInfo;
     }
-
+    
     public Date getCreatedAt() {
         return createdAt;
     }
-
+    
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
+    
     public Date getUpdatedAt() {
         return updatedAt;
     }
-
+    
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
+    
     public User getCreator() {
         return creator;
     }
-
+    
     public void setCreator(User creator) {
         this.creator = creator;
     }
-
-    public Movie getMovie() {
-        return movie;
+    
+    public Integer getApiMovieId() {
+        return apiMovieId;
     }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    
+    public void setApiMovieId(Integer apiMovieId) {
+        this.apiMovieId = apiMovieId;
     }
     
     

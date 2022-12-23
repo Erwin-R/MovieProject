@@ -57,7 +57,6 @@ public class User {
 		this.updatedAt = new Date();
 	}
 
-
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Movie> movies;
 

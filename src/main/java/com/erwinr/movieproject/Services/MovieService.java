@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erwinr.movieproject.Models.Movie;
+import com.erwinr.movieproject.Models.User;
 import com.erwinr.movieproject.Repositories.MovieRepository;
 
 @Service
@@ -42,6 +43,15 @@ public class MovieService {
 
     public void deleteMovie(Long id) {
         movieRepo.deleteById(id);
+    }
+
+    public Movie findWatchlistMovie(User user, Integer movieId) {
+        Optional<Movie> optionalMovie = movieRepo.findByUserAndApiMovieId(user, movieId);
+        if (optionalMovie.isPresent()) {
+            return optionalMovie.get();
+        } else {
+            return null;
+        }
     }
 
     // public Movie findByUser(Integer movieId){

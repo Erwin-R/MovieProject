@@ -46,21 +46,21 @@
 		<h1 class="text-center">Your must see movies!</h1>
 	</div>
 	<div id="main">
-		<c:forEach var="watchListMovie" items="${watchMovies}">
+		<c:forEach var="watchListMovie" items="${watchlistMovies}">
 			<div class="movie">
-				<img src="https://image.tmdb.org/t/p/w500${watchListMovie.poster_path}" alt="MoviePoster">
+				<img src="https://image.tmdb.org/t/p/w500${watchListMovie.posterPath}" alt="MoviePoster">
 				<div class="movie-title">
 					<h3>${watchListMovie.title}</h3>
-					<h6>Release Date: ${watchListMovie.release_date}</h6>
+					<h6>Release Date: ${watchListMovie.releaseDate}</h6>
 					<c:choose>
-						<c:when test="${watchListMovie.vote_average >= 8 }">
-							<span class="green">${watchListMovie.vote_average}</span>
+						<c:when test="${watchListMovie.voteAverage >= 8 }">
+							<span class="green">${watchListMovie.voteAverage}</span>
 						</c:when>
-						<c:when test="${watchListMovie.vote_average >= 5 }">
-							<span class="yellow">${watchListMovie.vote_average}</span>
+						<c:when test="${watchListMovie.voteAverage >= 5 }">
+							<span class="yellow">${watchListMovie.voteAverage}</span>
 						</c:when>
 						<c:otherwise>
-							<span class="red">${watchListMovie.vote_average}</span>
+							<span class="red">${watchListMovie.voteAverage}</span>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -72,7 +72,7 @@
 							<input type="hidden" name="_method" value="delete">
 							<input type="submit" class="btn me-2" value="Remove From Watchlist">
 						</form>
-						<form action="/movie/${watchListMovie.movie_id}/details">
+						<form action="/movie/${watchListMovie.apiMovieId}/details">
 							<input type="submit" class="btn" value="More Details">
 						</form>
 					</div>
