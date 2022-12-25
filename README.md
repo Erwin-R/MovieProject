@@ -13,3 +13,29 @@ that organized agile meetings, oversaw previous day progress reports, and making
 <br>
 <br>
 Overall, this was a great development experience for my cohort mates and I! While we encountered many challenges in the process of developing this website, such as collaboration using Github, implementing the TMDB API, and creating complex data models, this project helped sharpen our ability to problem solve and collaborate as a team. It also helped me get better at project management.  
+<br>
+<br>
+## Demo
+Temporary
+<br>
+<br>
+## Table of Contents
+- Prerequisites
+- Installation
+- Usage
+- Credits
+- License
+
+## Prerequisites
+- [Spring Tool Suite](https://spring.io/tools)
+- [MySQL](https://downloads.mysql.com/archives/community/)(Mac)
+- [MySQL](https://dev.mysql.com/downloads/windows/installer/8.0.html)(Windows)
+- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/#downloads)
+
+## Installation
+1. Clone the repo
+```
+git clone
+```
+
+
