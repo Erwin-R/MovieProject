@@ -24,7 +24,6 @@ Temporary
 - Installation
 - Usage
 - Credits
-- License
 
 ## Prerequisites
 - [Spring Tool Suite](https://spring.io/tools)
@@ -35,7 +34,19 @@ Temporary
 ## Installation
 1. Clone the repo
 ```
-git clone
+git clone https://github.com/Erwin-R/MovieProject.git
 ```
+2. Change the following code block in the application.properties files to match your application
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/YOUR_PROJECT_NAME
+spring.datasource.username= YOUR_USER_NAME
+spring.datasource.password= YOUR_USER_PASSWORD
+spring.mail.username=YOUR_USER_EMAIL
+spring.mail.password= YOUR_USER_PASSWORD
+```
+## Usage
+1. Run the application inside of Spring Tool Suite or you can use the Spring Tools Suite extension for VS Code. If on Spring tool suite, right click on project name, then click on "Run As"-> "Spring Boot App". If on VS code, right click on home controller and then click on "Run Java".
+2. Open a browser and go to [http://localhost:8080](http://localhost:8080).
 
-
+## Credits
+Special thanks to my groupmates Eloy Vigil ([https://github.com/EloyVigil](https://github.com/EloyVigil)) and Brandon Borchert ([https://github.com/bjborchert93](https://github.com/bjborchert93)) for helping this project come to life!
