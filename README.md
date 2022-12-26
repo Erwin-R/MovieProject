@@ -20,9 +20,9 @@ Temporary
 <br>
 ## Table of Contents
 - [Prerequisites](https://github.com/Erwin-R/MovieProject/blob/main/README.md#prerequisites)
-- Installation
-- Usage
-- Credits
+- [Installation](https://github.com/Erwin-R/MovieProject#installation)
+- [Usage](https://github.com/Erwin-R/MovieProject#usage)
+- [Credits](https://github.com/Erwin-R/MovieProject#credits)
 
 ## Prerequisites
 - [Spring Tool Suite](https://spring.io/tools)
