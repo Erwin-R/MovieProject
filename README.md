@@ -19,7 +19,7 @@ Temporary
 <br>
 <br>
 ## Table of Contents
-- Prerequisites
+- [Prerequisites](https://github.com/Erwin-R/MovieProject/blob/main/README.md#prerequisites)
 - Installation
 - Usage
 - Credits
