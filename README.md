@@ -33,7 +33,7 @@ Temporary
 ## Installation
 1. Clone the repo
 ```
-git clone https://github.com/Erwin-R/MovieProject.git
+git clone https://github.com/your_username/MovieProject.git
 ```
 2. Change the following code block in the application.properties files to match your application
 ```
