@@ -21,10 +21,18 @@
 -->
 [![contributors][contributors-shield]][contributors-url]
 [![forks][forks-shield]][forks-url]
-[![stars][stars-shield]][stars-url]
 [![issues][issues-shield]][issues-url]
 [![commits][commits-shield]][commits-url]
 [![pulls][pulls-shield]][pulls-url]
+
+*Get in touch with us!*
+
+- Erwin - [![linkedIn][linkedin-shield]][linkedin-url]
+
+- Brandon - [![Brandon][brandon-shield]][brandon-url]
+
+- Eloy - [![Eloy][eloy-shield]][eloy-url]
+
 ## Description
 A full-stack Java Spring-Based application featuring MySQL, JSP, TMDB API, Java's Smtplib mail library, and SpringBoot. This website's purpose is to serve as an online database that contains information and statistics about films as well as the genre, actors, writers of said film.
 This project was created within a one-week sprint with two other software developers.
@@ -57,11 +65,12 @@ Temporary
 - [MySQL Workbench](https://dev.mysql.com/downloads/workbench/#downloads)
 
 ## Installation
-1. Clone the repo
+1. Get a free API key at [themoviedb.org](https://developers.themoviedb.org/3/getting-started/introduction)
+2. Clone the repo
 ```
 git clone https://github.com/your_username/MovieProject.git
 ```
-2. Change the following code block in the application.properties files to match your application
+3. Change the following code block in the application.properties files to match your application
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/YOUR_PROJECT_NAME
 spring.datasource.username= YOUR_USER_NAME
@@ -69,6 +78,13 @@ spring.datasource.password= YOUR_USER_PASSWORD
 spring.mail.username=YOUR_USER_EMAIL
 spring.mail.password= YOUR_USER_PASSWORD
 ```
+4. Enter your API key in the Home Controller file on these lines
+```
+TmdbMovies movies = new TmdbApi("your_API_KEY").getMovies();
+TmdbSearch movies = new TmdbApi("your_API_KEY").getSearch();
+TmdbPeople people = new TmdbApi("your_API_KEY").getPeople();
+```
+
 ## Usage
 1. Run the application inside of Spring Tool Suite or you can use the Spring Tools Suite extension for VS Code. If on Spring tool suite, right click on project name, then click on "Run As"-> "Spring Boot App". If on VS code, right click on home controller and then click on "Run Java".
 2. Open a browser and go to [http://localhost:8080](http://localhost:8080).
@@ -80,16 +96,22 @@ Special thanks to my groupmates Eloy Vigil ([https://github.com/EloyVigil](https
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Erwin-R/MovieProject.svg?style=for-the-badge
 [contributors-url]: https://github.com/Erwin-R/MovieProject/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[forks-shield]: https://img.shields.io/github/forks/Erwin-R/MovieProject.svg?style=for-the-badge
+[forks-url]: https://github.com/Erwin-R/MovieProject/network/members
+[issues-shield]: https://img.shields.io/github/issues/Erwin-R/MovieProject.svg?style=for-the-badge
+[issues-url]: https://github.com/Erwin-R/MovieProject/issues
+
+[commits-shield]: https://img.shields.io/github/commits-since/Erwin-R/MovieProject/6956.svg
+[commits-url]: https://github.com/Erwin-R/MovieProject/commits
+[pulls-shield]: https://img.shields.io/github/issues-pr-closed/Erwin-R/MovieProject.svg
+[pulls-url]: https://github.com/Erwin-R/MovieProject/pulls
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://linkedin.com/in/erwin-rosales-724334253
+[brandon-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[brandon-url]: https://linkedin.com/in/brandon-borchert
+[eloy-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[eloy-url]: https://linkedin.com/in/eloy-vigil
+
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
