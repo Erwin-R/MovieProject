@@ -112,15 +112,19 @@ TmdbPeople people = new TmdbApi("your_API_KEY").getPeople();
 ![image](https://user-images.githubusercontent.com/108560020/210154022-82a14d0c-ab98-4274-95b8-fb3c59116661.png)
 ![image](https://user-images.githubusercontent.com/108560020/210154030-3a7dc7fb-6408-477f-b03b-dae7b7c5e8f9.png)
 
-5. Clicking on the *Trending* tab on the navbar will take users to the trending movies page. From here users will be able to see current trending movies in real-time.
+5. At the bottom of the movie details page, users can view other user's comments and submit comments to share their thoughts on a particular movie.
+
+![image](https://user-images.githubusercontent.com/108560020/210154460-ed2bf4f7-3a73-47c4-939d-b286e96eb5da.png)
+
+6. Clicking on the *Trending* tab on the navbar will take users to the trending movies page. From here users will be able to see current trending movies in real-time.
 
 ![image](https://user-images.githubusercontent.com/108560020/210154185-5afb9f80-8212-41fb-8fbb-7b835cd07c4a.png)
 
-6. As seen on the movie details and trending movies page, users can add movies to a watchlist. They are also able to remove movies from the watchlist.
+7. As seen on the movie details and trending movies page, users can add movies to a watchlist. They are also able to remove movies from the watchlist.
 
 ![image](https://user-images.githubusercontent.com/108560020/210154317-c2b3d7f9-eeec-4d9d-bc7e-4af8e7acb760.png)
 
-7. There is also a search function on our website where users can search for movies they're interested in.
+8. There is also a search function on our website where users can search for movies they're interested in.
 
 ![image](https://user-images.githubusercontent.com/108560020/210154378-9902cc67-6665-4655-bd49-f9298e21499e.png)
 
