@@ -47,6 +47,20 @@ that organized agile meetings, oversaw previous day progress reports, and making
 <br>
 <br>
 Overall, this was a great development experience for my cohort mates and I! While we encountered many challenges in the process of developing this website, such as collaboration using Github, implementing the TMDB API, and creating complex data models, this project helped sharpen our ability to problem solve and collaborate as a team. It also helped me get better at project management.  
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project.
+
+* ![java][java]
+* ![React][React.js]
+* ![Laravel][Laravel.com]
+* ![css][css]
+* ![JQuery][JQuery.com]
+* ![MySQL.com][MySQL.com]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Demo
 Temporary
@@ -84,13 +98,18 @@ TmdbMovies movies = new TmdbApi("your_API_KEY").getMovies();
 TmdbSearch movies = new TmdbApi("your_API_KEY").getSearch();
 TmdbPeople people = new TmdbApi("your_API_KEY").getPeople();
 ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 1. Run the application inside of Spring Tool Suite or you can use the Spring Tools Suite extension for VS Code. If on Spring tool suite, right click on project name, then click on "Run As"-> "Spring Boot App". If on VS code, right click on home controller and then click on "Run Java".
 2. Open a browser and go to [http://localhost:8080](http://localhost:8080).
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Credits
 Special thanks to my groupmates Eloy Vigil ([https://github.com/EloyVigil](https://github.com/EloyVigil)) and Brandon Borchert ([https://github.com/bjborchert93](https://github.com/bjborchert93)) for helping this project come to life!
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -113,19 +132,9 @@ Special thanks to my groupmates Eloy Vigil ([https://github.com/EloyVigil](https
 [eloy-url]: https://linkedin.com/in/eloy-vigil
 
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[java]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white
+[React.js]: https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white
+[Laravel.com]:https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[css]:https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[JQuery.com]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[mySQL.com]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
