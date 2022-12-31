@@ -62,8 +62,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Demo
-Temporary
+## Demo Video
+Coming Soon
 <br>
 <br>
 ## Table of Contents
@@ -103,6 +103,27 @@ TmdbPeople people = new TmdbApi("your_API_KEY").getPeople();
 ## Usage
 1. Run the application inside of Spring Tool Suite or you can use the Spring Tools Suite extension for VS Code. If on Spring tool suite, right click on project name, then click on "Run As"-> "Spring Boot App". If on VS code, right click on home controller and then click on "Run Java".
 2. Open a browser and go to [http://localhost:8080](http://localhost:8080).
+3. This is the home page of Movie Spree. While users can browse and search movies on our site, they will need to create an account to add movies to a watchlist and leave comments on movies.
+
+![image](https://user-images.githubusercontent.com/108560020/210153891-b50ff5c7-3653-4291-a8ee-1b3abb7b780a.png)
+
+4. Users can view information about a movie such as the cast, directors, writers, etc. Users are also able to view view information about cast and directors by clicking on their names/images.
+
+![image](https://user-images.githubusercontent.com/108560020/210154022-82a14d0c-ab98-4274-95b8-fb3c59116661.png)
+![image](https://user-images.githubusercontent.com/108560020/210154030-3a7dc7fb-6408-477f-b03b-dae7b7c5e8f9.png)
+
+5. Clicking on the *Trending* tab on the navbar will take users to the trending movies page. From here users will be able to see current trending movies in real-time.
+
+![image](https://user-images.githubusercontent.com/108560020/210154185-5afb9f80-8212-41fb-8fbb-7b835cd07c4a.png)
+
+6. As seen on the movie details and trending movies page, users can add movies to a watchlist. They are also able to remove movies from the watchlist.
+
+![image](https://user-images.githubusercontent.com/108560020/210154317-c2b3d7f9-eeec-4d9d-bc7e-4af8e7acb760.png)
+
+7. There is also a search function on our website where users can search for movies they're interested in.
+
+![image](https://user-images.githubusercontent.com/108560020/210154378-9902cc67-6665-4655-bd49-f9298e21499e.png)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
