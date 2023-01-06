@@ -107,7 +107,7 @@ TmdbPeople people = new TmdbApi("your_API_KEY").getPeople();
 
 ![image](https://user-images.githubusercontent.com/108560020/210153891-b50ff5c7-3653-4291-a8ee-1b3abb7b780a.png)
 
-4. Users can view information about a movie such as the cast, directors, writers, etc. Users are also able to view view information about cast and directors by clicking on their names/images.
+4. Users can view information about a movie such as the cast, directors, writers, etc. Users are also able to view information about cast and directors by clicking on their names/images.
 
 ![image](https://user-images.githubusercontent.com/108560020/210154022-82a14d0c-ab98-4274-95b8-fb3c59116661.png)
 ![image](https://user-images.githubusercontent.com/108560020/210154030-3a7dc7fb-6408-477f-b03b-dae7b7c5e8f9.png)
